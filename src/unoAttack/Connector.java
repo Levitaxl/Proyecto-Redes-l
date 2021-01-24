@@ -44,7 +44,7 @@ public class Connector {
      private static String message="";
     private static void receiveData(String data)
     {     
-        System.out.println("Trama "+ data);
+        System.out.println("Trama recibida "+ data);
        // sentMessage("AB0113AZ07VE");
         ferificarCarta(data);
         //sentMessage("AB1101VE01");
@@ -89,28 +89,32 @@ public class Connector {
         //Si el valor de la carta es mayor a 9, es un comodin.
         if(nroCarta>9){
          if(nroCarta==10){
-            System.out.println("Reversa de color " + colorCarta);
+            //System.out.println("Reversa de color " + colorCarta);
             generarTramaReversa(carta);
          }
          
          else if(nroCarta==11){
-            System.out.println("Bloqueo de color " + colorCarta);
+            //System.out.println("Bloqueo de color " + colorCarta);
+            generarTramaBloqueo(carta);
          }
          
          else if (nroCarta==12){
-            System.out.println("+2 de color " + colorCarta);
+            //System.out.println("+2 de color " + colorCarta);
+            generarTramaMas2(carta);
          }
          
          else if (nroCarta==13){
-            System.out.println("Cambia de de color a " + nuevoColorCarta);
+            //System.out.println("Cambia de de color a " + nuevoColorCarta);
+            generarTramaCambioDeColor(carta);
          }
          
          else if (nroCarta==14){
-            System.out.println("+4 con nuevo color de carta" + nuevoColorCarta);
+           // System.out.println("+4 con nuevo color de carta" + nuevoColorCarta);
+            generarTramaMas4(carta);
          }
          
          else if (nroCarta==15){
-            System.out.println("manotazo " + colorCarta);
+            //System.out.println("manotazo " + colorCarta);
          }
         }
         
@@ -118,22 +122,25 @@ public class Connector {
     }
     
     public static void generarTramaReversa(String trama){
-        int sentido=parseInt(trama.substring(3,4));
-        String jugadorActual=trama.substring(1,2);
-        String jugadorSiguiente=null;
-        String colorNuevo=trama.substring(6,8);
+        int         nroCarta=parseInt(trama.substring(4,6));
+        String      tipoCarta=trama.substring(6,8);
+        int         sentido=parseInt(trama.substring(3,4));
+        String      jugadorActual=trama.substring(1,2);
+        String      jugadorSiguiente=null;
+        String      colorNuevo=trama.substring(6,8);
         
         //Estas son cosas que despues se deben de volver funciones
         String uno="0";
-        String cartaJugada="01AZ";
+        String cartaJugada=nroCarta+tipoCarta;
         String cantidadDeCartas="20";
+        int bloqueado=0;
      
         
         
         if(sentido==1)      sentido=0;
         else if(sentido==0) sentido=1;
         
-        System.out.println(sentido);
+       
         
         if(sentido==1){
             if      (jugadorActual.equals("A")) jugadorSiguiente="B";
@@ -150,63 +157,75 @@ public class Connector {
         //Condicion para el uno.
         //generar carta jugada
         //contar cartas en mano
-        System.out.println(jugadorSiguiente);
-        String tramaNueva=jugadorActual+jugadorSiguiente+uno+sentido+cartaJugada+cantidadDeCartas+colorNuevo;
-        System.out.println("trama nueva "+tramaNueva);
+  
+        String tramaNueva=jugadorActual+jugadorSiguiente+uno+sentido+cartaJugada+cantidadDeCartas+colorNuevo+bloqueado;
         
         sentMessage(tramaNueva); 
     }
     
     public static void generarTramaBloqueo(String trama){
-        
-        int sentido=parseInt(trama.substring(3,4));
-        String jugadorActual=trama.substring(1,2);
-        String jugadorSiguiente=null;
-        String colorNuevo=trama.substring(6,8);
+        int         nroCarta=parseInt(trama.substring(4,6));
+        String      tipoCarta=trama.substring(6,8);
+        int     sentido=parseInt(trama.substring(3,4));
+        String  jugadorActual=trama.substring(1,2);
+        String  jugadorSiguiente=null;
+        String  colorNuevo=trama.substring(6,8);
+        int     bloqueado=parseInt(trama.substring(8,9));
         
         //Estas son cosas que despues se deben de volver funciones
         String uno="0";
-        String cartaJugada="01AZ";
+        String cartaJugada=nroCarta+tipoCarta;
         String cantidadDeCartas="20";
-     
         
-        
-        if(sentido==1)      sentido=0;
-        else if(sentido==0) sentido=1;
-        
-        System.out.println(sentido);
-        
-        if(sentido==1){
-            if      (jugadorActual.equals("A")) jugadorSiguiente="C";
-            else if (jugadorActual.equals("B")) jugadorSiguiente="D";
-            else if (jugadorActual.equals("C")) jugadorSiguiente="A";
-            else if (jugadorActual.equals("D")) jugadorSiguiente="B";
+        if(bloqueado==1){
+            if(sentido==1){
+                if      (jugadorActual.equals("A")) jugadorSiguiente="C";
+                else if (jugadorActual.equals("B")) jugadorSiguiente="D";
+                else if (jugadorActual.equals("C")) jugadorSiguiente="A";
+                else if (jugadorActual.equals("D")) jugadorSiguiente="B";
+            }
+            else if(sentido==0){
+                if      (jugadorActual.equals('A')) jugadorSiguiente="C";
+                else if (jugadorActual.equals("D")) jugadorSiguiente="B";
+                else if (jugadorActual.equals("C")) jugadorSiguiente="A";
+                else if (jugadorActual.equals("B")) jugadorSiguiente="D"; 
+            }
+            bloqueado=0;
         }
-        else if(sentido==0){
-            if      (jugadorActual.equals('A')) jugadorSiguiente="C";
-            else if (jugadorActual.equals("D")) jugadorSiguiente="B";
-            else if (jugadorActual.equals("C")) jugadorSiguiente="A";
-            else if (jugadorActual.equals("B")) jugadorSiguiente="D"; 
+        
+        else if(bloqueado==0){
+            if(sentido==1){
+                if      (jugadorActual.equals("A")) jugadorSiguiente="B";
+                else if (jugadorActual.equals("B")) jugadorSiguiente="C";
+                else if (jugadorActual.equals("C")) jugadorSiguiente="D";
+                else if (jugadorActual.equals("D")) jugadorSiguiente="A";
+            }
+            else if(sentido==0){
+                if      (jugadorActual.equals('A')) jugadorSiguiente="D";
+                else if (jugadorActual.equals("D")) jugadorSiguiente="C";
+                else if (jugadorActual.equals("C")) jugadorSiguiente="B";
+                else if (jugadorActual.equals("B")) jugadorSiguiente="A"; 
+            }
         }
         //Condicion para el uno.
         //generar carta jugada
         //contar cartas en mano
-        System.out.println(jugadorSiguiente);
-        String tramaNueva=jugadorActual+jugadorSiguiente+uno+sentido+cartaJugada+cantidadDeCartas+colorNuevo;
-        System.out.println("trama nueva "+tramaNueva);
+        String tramaNueva=jugadorActual+jugadorSiguiente+uno+sentido+cartaJugada+cantidadDeCartas+colorNuevo+bloqueado;
         
         sentMessage(tramaNueva); 
     }
     public static void generarTramaMas2(String trama){
-        
-        int sentido=parseInt(trama.substring(3,4));
-        String jugadorActual=trama.substring(1,2);
-        String jugadorSiguiente=null;
-        String colorNuevo=trama.substring(6,8);
+        int         nroCarta=parseInt(trama.substring(4,6));
+        String      tipoCarta=trama.substring(6,8);
+        int         sentido=parseInt(trama.substring(3,4));
+        String      jugadorActual=trama.substring(1,2);
+        String      jugadorSiguiente=null;
+        String      colorNuevo=trama.substring(6,8);
+        int         bloqueado=parseInt(trama.substring(8,9));
         
         //Estas son cosas que despues se deben de volver funciones
         String uno="0";
-        String cartaJugada="01AZ";
+        String cartaJugada=nroCarta+tipoCarta;
         String cantidadDeCartas="20";
      
         
@@ -214,26 +233,127 @@ public class Connector {
         if(sentido==1)      sentido=0;
         else if(sentido==0) sentido=1;
         
-        System.out.println(sentido);
+
         
-        if(sentido==1){
-            if      (jugadorActual.equals("A")) jugadorSiguiente="C";
-            else if (jugadorActual.equals("B")) jugadorSiguiente="D";
-            else if (jugadorActual.equals("C")) jugadorSiguiente="A";
-            else if (jugadorActual.equals("D")) jugadorSiguiente="B";
+        if(bloqueado==1){
+            if(sentido==1){
+                if      (jugadorActual.equals("A")) jugadorSiguiente="C";
+                else if (jugadorActual.equals("B")) jugadorSiguiente="D";
+                else if (jugadorActual.equals("C")) jugadorSiguiente="A";
+                else if (jugadorActual.equals("D")) jugadorSiguiente="B";
+            }
+            else if(sentido==0){
+                if      (jugadorActual.equals('A')) jugadorSiguiente="C";
+                else if (jugadorActual.equals("D")) jugadorSiguiente="B";
+                else if (jugadorActual.equals("C")) jugadorSiguiente="A";
+                else if (jugadorActual.equals("B")) jugadorSiguiente="D"; 
+            }
+            bloqueado=0;
         }
-        else if(sentido==0){
-            if      (jugadorActual.equals('A')) jugadorSiguiente="C";
-            else if (jugadorActual.equals("D")) jugadorSiguiente="B";
-            else if (jugadorActual.equals("C")) jugadorSiguiente="A";
-            else if (jugadorActual.equals("B")) jugadorSiguiente="D"; 
+        
+        else if(bloqueado==0){
+            if(sentido==1){
+                if      (jugadorActual.equals("A")) jugadorSiguiente="B";
+                else if (jugadorActual.equals("B")) jugadorSiguiente="C";
+                else if (jugadorActual.equals("C")) jugadorSiguiente="D";
+                else if (jugadorActual.equals("D")) jugadorSiguiente="A";
+            }
+            else if(sentido==0){
+                if      (jugadorActual.equals('A')) jugadorSiguiente="D";
+                else if (jugadorActual.equals("D")) jugadorSiguiente="C";
+                else if (jugadorActual.equals("C")) jugadorSiguiente="B";
+                else if (jugadorActual.equals("B")) jugadorSiguiente="A"; 
+            }
         }
         //Condicion para el uno.
         //generar carta jugada
         //contar cartas en mano +2
-        System.out.println(jugadorSiguiente);
-        String tramaNueva=jugadorActual+jugadorSiguiente+uno+sentido+cartaJugada+cantidadDeCartas+colorNuevo;
-        System.out.println("trama nueva "+tramaNueva);
+        //añadir el doble manotazo
+
+        String tramaNueva=jugadorActual+jugadorSiguiente+uno+sentido+cartaJugada+cantidadDeCartas+colorNuevo+bloqueado;
+        sentMessage(tramaNueva); 
+   
+    }
+    
+    public static void generarTramaCambioDeColor(String trama){
+        int     sentido=parseInt(trama.substring(3,4));
+        String  jugadorActual=trama.substring(1,2);
+        String  jugadorSiguiente=null;
+        String  colorNuevo=trama.substring(6,8);
+        int     bloqueado=parseInt(trama.substring(8,9));
+        
+        //Estas son cosas que despues se deben de volver funciones
+        String uno="0";
+        String cartaJugada="13NE";
+        String cantidadDeCartas="20";
+        
+        if(sentido==1){
+                if      (jugadorActual.equals("A")) jugadorSiguiente="B";
+                else if (jugadorActual.equals("B")) jugadorSiguiente="C";
+                else if (jugadorActual.equals("C")) jugadorSiguiente="D";
+                else if (jugadorActual.equals("D")) jugadorSiguiente="A";
+            }
+        else if(sentido==0){
+             if      (jugadorActual.equals('A')) jugadorSiguiente="D";
+             else if (jugadorActual.equals("D")) jugadorSiguiente="C";
+             else if (jugadorActual.equals("C")) jugadorSiguiente="B";
+             else if (jugadorActual.equals("B")) jugadorSiguiente="A"; 
+        }
+        
+        String tramaNueva=jugadorActual+jugadorSiguiente+uno+sentido+cartaJugada+cantidadDeCartas+colorNuevo+bloqueado;
+        sentMessage(tramaNueva); 
+        
+    }
+    
+    
+    public static void generarTramaMas4(String trama){
+        int     sentido=parseInt(trama.substring(3,4));
+        String  jugadorActual=trama.substring(1,2);
+        String  jugadorSiguiente=null;
+        String  colorNuevo=trama.substring(6,8);
+        int     bloqueado=parseInt(trama.substring(8,9));
+        
+        //Estas son cosas que despues se deben de volver funciones
+        String uno="0";
+        String cartaJugada="14NE";
+        String cantidadDeCartas="20";
+        
+        if(bloqueado==1){
+            if(sentido==1){
+                if      (jugadorActual.equals("A")) jugadorSiguiente="C";
+                else if (jugadorActual.equals("B")) jugadorSiguiente="D";
+                else if (jugadorActual.equals("C")) jugadorSiguiente="A";
+                else if (jugadorActual.equals("D")) jugadorSiguiente="B";
+                bloqueado=0;
+            }
+            else if(sentido==0){
+                if      (jugadorActual.equals('A')) jugadorSiguiente="C";
+                else if (jugadorActual.equals("D")) jugadorSiguiente="B";
+                else if (jugadorActual.equals("C")) jugadorSiguiente="A";
+                else if (jugadorActual.equals("B")) jugadorSiguiente="D"; 
+            }
+        }
+        
+        else if(bloqueado==0){
+            if(sentido==1){
+                if      (jugadorActual.equals("A")) jugadorSiguiente="B";
+                else if (jugadorActual.equals("B")) jugadorSiguiente="C";
+                else if (jugadorActual.equals("C")) jugadorSiguiente="D";
+                else if (jugadorActual.equals("D")) jugadorSiguiente="A";
+                bloqueado=0;
+            }
+            else if(sentido==0){
+                if      (jugadorActual.equals('A')) jugadorSiguiente="D";
+                else if (jugadorActual.equals("D")) jugadorSiguiente="C";
+                else if (jugadorActual.equals("C")) jugadorSiguiente="B";
+                else if (jugadorActual.equals("B")) jugadorSiguiente="A"; 
+            }
+        }
+        
+        //Función para aumentar
+        String tramaNueva=jugadorActual+jugadorSiguiente+uno+sentido+cartaJugada+cantidadDeCartas+colorNuevo+bloqueado;
+        sentMessage(tramaNueva); 
+        
     }
 
     /**
@@ -250,6 +370,7 @@ public class Connector {
             *  CARTA JUGADA                     (#1-16,AZ/AM/VE/RO/NE)
             *  CANT.MANO DEL JUGADOR ANTERIOR   (#1-99)
             *  COLOR NUEVO                      (AZ/AM/VE/RO/NE)
+            * BLOQUEADO                         (0,1)0=no esta bloqueado, 1= esta bloqueado
         **/
         
         /*EL COLOR NUEVO ES PARA CUANDO SE TENGA UNA CARTA NEGRA COMO +4 o +2*/
@@ -292,6 +413,7 @@ public class Connector {
     {
         try
         {
+            System.out.println("Trama enviada: "+message);
             byte[] bytes = message.getBytes(); 
             comPort.writeBytes(bytes,bytes.length);
         }
