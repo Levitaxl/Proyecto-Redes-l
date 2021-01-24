@@ -19,9 +19,7 @@ import jssc.SerialPortList;
 public class Connector {
 
     static SerialPort comPort;
-    static SerialPort[] comPorts;
     static String stringBuffer;
-    Thread t;
 
     private static final class DataListener implements SerialPortDataListener
     {
@@ -32,11 +30,10 @@ public class Connector {
         public void serialEvent(SerialPortEvent event)
         {
             if (event.getEventType() != SerialPort.LISTENING_EVENT_DATA_AVAILABLE) return;
-           // System.out.println("Past event type check.");
             byte[] newData = new byte[comPort.bytesAvailable()];
             int numRead = comPort.readBytes(newData, newData.length);
             stringBuffer = new String(newData,0,numRead);
-           receiveData(stringBuffer);
+            receiveData(stringBuffer);
             
         }
     }
@@ -45,20 +42,7 @@ public class Connector {
     private static void receiveData(String data)
     {     
         System.out.println("Trama recibida "+ data);
-       // sentMessage("AB0113AZ07VE");
         ferificarCarta(data);
-        //sentMessage("AB1101VE01");
-        /*System.out.println("Jugador Origen:"+data.substring(0,1));
-        System.out.println("Jugador Destino:"+data.substring(1,2));
-        System.out.println("UNO:"+data.substring(2,3));
-        //Condicion para el uno
-        System.out.println("Sentido:"+data.substring(3,4));
-        //Condicion par el sentido
-        System.out.println("Carta Jugada:"+data.substring(4,8));
-        //Condicion para la carta jugada anteriormente
-        System.out.println("Cant. Cartas jugadas por el jugador anterior:"+data.substring(8,10));*/
-        
-        //Falta mandar la data.
     }
     
     public static  void filter(String s)
@@ -88,34 +72,33 @@ public class Connector {
         
         //Si el valor de la carta es mayor a 9, es un comodin.
         if(nroCarta>9){
-         if(nroCarta==10){
-            //System.out.println("Reversa de color " + colorCarta);
-            generarTramaReversa(carta);
-         }
-         
-         else if(nroCarta==11){
-            //System.out.println("Bloqueo de color " + colorCarta);
-            generarTramaBloqueo(carta);
-         }
-         
-         else if (nroCarta==12){
-            //System.out.println("+2 de color " + colorCarta);
-            generarTramaMas2(carta);
-         }
-         
-         else if (nroCarta==13){
-            //System.out.println("Cambia de de color a " + nuevoColorCarta);
-            generarTramaCambioDeColor(carta);
-         }
-         
-         else if (nroCarta==14){
-           // System.out.println("+4 con nuevo color de carta" + nuevoColorCarta);
-            generarTramaMas4(carta);
-         }
-         
-         else if (nroCarta==15){
+            switch (nroCarta) {
+                case 10:
+                    //System.out.println("Reversa de color " + colorCarta);
+                    generarTramaReversa(carta);
+                    break;
+                case 11:
+                    //System.out.println("Bloqueo de color " + colorCarta);
+                    generarTramaBloqueo(carta);
+                    break;
+                case 12:
+                    //System.out.println("+2 de color " + colorCarta);
+                    generarTramaMas2(carta);
+                    break;
+                case 13:
+                    //System.out.println("Cambia de de color a " + nuevoColorCarta);
+                    generarTramaCambioDeColor(carta);
+                    break;
+                case 14:
+                    // System.out.println("+4 con nuevo color de carta" + nuevoColorCarta);
+                    generarTramaMas4(carta);
+                    break;
             //System.out.println("manotazo " + colorCarta);
-         }
+                case 15:
+                    break;
+                default:
+                    break;
+            }
         }
         
         else  System.out.println("La carta no es un comodin");
@@ -292,7 +275,7 @@ public class Connector {
                 else if (jugadorActual.equals("B")) jugadorSiguiente="C";
                 else if (jugadorActual.equals("C")) jugadorSiguiente="D";
                 else if (jugadorActual.equals("D")) jugadorSiguiente="A";
-            }
+        }
         else if(sentido==0){
              if      (jugadorActual.equals('A')) jugadorSiguiente="D";
              else if (jugadorActual.equals("D")) jugadorSiguiente="C";
@@ -302,7 +285,6 @@ public class Connector {
         
         String tramaNueva=jugadorActual+jugadorSiguiente+uno+sentido+cartaJugada+cantidadDeCartas+colorNuevo+bloqueado;
         sentMessage(tramaNueva); 
-        
     }
     
     
@@ -403,11 +385,11 @@ public class Connector {
         System.out.println("Event Listener open.");
         
            
-        String data="AB0110AZ07AZ";
+        String data="AB0110AZ07AZ0";
         sentMessage(data);
         //data=null;
         //data="BC0111NE08VE";
-        //sentMessage("AB0113AZ07VE");
+        //sentMessage("AB0113AZ07VE0");
     }
       public static void sentMessage(String message)
     {
