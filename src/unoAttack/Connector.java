@@ -384,12 +384,22 @@ public class Connector {
         comPort.addDataListener(listener);
         System.out.println("Event Listener open.");
         
-           
-        String data="AB0110AZ07AZ0";
-        sentMessage(data);
-        //data=null;
-        //data="BC0111NE08VE";
-        //sentMessage("AB0113AZ07VE0");
+        switch (comPort.getSystemPortName()) {
+            case "COM1":
+                sentMessage("AB0110AZ07AZ0");
+                break;
+            case "COM2":
+                sentMessage("BC0110AZ07AZ0");
+                break;
+            case "COM3":
+                sentMessage("CD0110AZ07AZ0");
+                break;
+            case "COM4":
+                sentMessage("DA0110AZ07AZ0");
+                break;
+            default:
+                break;
+        }
     }
       public static void sentMessage(String message)
     {
