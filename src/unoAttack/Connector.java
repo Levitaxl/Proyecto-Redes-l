@@ -44,8 +44,9 @@ public class Connector {
      private static String message="";
     private static void receiveData(String data)
     {     
-        //System.out.println(data);
-        ferificarCarta(data.substring(4,10));
+        System.out.println("Trama "+ data);
+       // sentMessage("AB0113AZ07VE");
+        ferificarCarta(data);
         //sentMessage("AB1101VE01");
         /*System.out.println("Jugador Origen:"+data.substring(0,1));
         System.out.println("Jugador Destino:"+data.substring(1,2));
@@ -66,11 +67,11 @@ public class Connector {
     }
     
     public static void ferificarCarta(String carta){
-        System.out.println(carta);
-        int         nroCarta=parseInt(carta.substring(0,1));
-        String      tipoCarta=carta.substring(1,3);
+        int         nroCarta=parseInt(carta.substring(4,6));
+        String      tipoCarta=carta.substring(6,8);
         String      colorCarta = null;
-        String      nuevoColorCarta=carta.substring(4,5);
+        String      cantidadCartas=carta.substring(8,10);
+        String      nuevoColorCarta=carta.substring(10,12);
         
         if(tipoCarta.equals("AZ"))         colorCarta="azul";
         else if(tipoCarta.equals("AM"))    colorCarta="amarillo";
@@ -78,35 +79,88 @@ public class Connector {
         else if(tipoCarta.equals("RO"))    colorCarta="rojo";
         else if(tipoCarta.equals("NE"))    colorCarta="negro";
         
-        
-      
+                
+        if(nuevoColorCarta.equals("AZ"))         nuevoColorCarta="azul";
+        else if(nuevoColorCarta.equals("AM"))    nuevoColorCarta="amarillo";
+        else if(nuevoColorCarta.equals("VE"))    nuevoColorCarta="verde";
+        else if(nuevoColorCarta.equals("RO"))    nuevoColorCarta="rojo";
+        else if(nuevoColorCarta.equals("NE"))    nuevoColorCarta="negro";
         
         //Si el valor de la carta es mayor a 9, es un comodin.
         if(nroCarta>9){
          if(nroCarta==10){
-             System.out.println("Reversa de color " + colorCarta);
+            System.out.println("Reversa de color " + colorCarta);
+            generarTramaReversa(carta);
          }
          
          else if(nroCarta==11){
-             System.out.println("Bloqueo de color " + colorCarta);
+            System.out.println("Bloqueo de color " + colorCarta);
          }
          
          else if (nroCarta==12){
-             System.out.println("+2 de color " + colorCarta);
+            System.out.println("+2 de color " + colorCarta);
          }
          
          else if (nroCarta==13){
-             System.out.println("Cambia de de color a " + nuevoColorCarta);
+            System.out.println("Cambia de de color a " + nuevoColorCarta);
          }
          
          else if (nroCarta==14){
-             System.out.println("+4 con nuevo color de carta" + nuevoColorCarta);
+            System.out.println("+4 con nuevo color de carta" + nuevoColorCarta);
          }
          
          else if (nroCarta==15){
-             System.out.println("manotazo " + colorCarta);
+            System.out.println("manotazo " + colorCarta);
          }
         }
+        
+        else  System.out.println("La carta no es un comodin");
+    }
+    
+    public static void generarTramaReversa(String trama){
+        int sentido=parseInt(trama.substring(3,4));
+        String jugadorActual=trama.substring(1,2);
+        String jugadorSiguiente=null;
+        String colorNuevo=trama.substring(6,8);
+        
+        //Estas son cosas que despues se deben de volver funciones
+        String uno="0";
+        String cartaJugada="01AZ";
+        String cantidadDeCartas="20";
+     
+        
+        
+        if(sentido==1)      sentido=0;
+        else if(sentido==0) sentido=1;
+        
+        System.out.println(sentido);
+        
+        if(sentido==1){
+            if      (jugadorActual.equals("A")) jugadorSiguiente="B";
+            else if (jugadorActual.equals("B")) jugadorSiguiente="C";
+            else if (jugadorActual.equals("C")) jugadorSiguiente="D";
+            else if (jugadorActual.equals("D")) jugadorSiguiente="A";
+        }
+        else if(sentido==0){
+             System.out.println("entre");
+            if      (jugadorActual.equals('A')) jugadorSiguiente="D";
+            else if (jugadorActual.equals("D")) jugadorSiguiente="C";
+            else if (jugadorActual.equals("C")) jugadorSiguiente="B";
+            else if (jugadorActual.equals("B")) jugadorSiguiente="A"; 
+        }
+        //Condicion para el uno.
+        //generar carta jugada
+        //contar cartas en mano
+        System.out.println(jugadorSiguiente);
+        String tramaNueva=jugadorActual+jugadorSiguiente+uno+sentido+cartaJugada+cantidadDeCartas+colorNuevo;
+        System.out.println("trama nueva "+tramaNueva);
+        
+        sentMessage(tramaNueva);
+        
+       // System.out.println(jugadorSiguiente);
+        
+        
+        
     }
 
     /**
@@ -116,15 +170,13 @@ public class Connector {
     static public void main(String[] args)  
     {
          /**
-            *  Inicio de la trama               ($$)
             *  Jugador Origen                   (A,B,C,D)
             *  Jugador Destino                  (A,B,C,D)
-            *  UNO                              (0,1) 0=tiene uno pero no lo dijo, 1= tiene uno y lo dijo
+            *  UNO                              (0,1) 0=tiene uno pero no lo dijo o no tiene uno, 1= tiene uno y lo dijo
             *  SENTIDO                          (0,1) 0=izquierda, 1=derecha
             *  CARTA JUGADA                     (#1-16,AZ/AM/VE/RO/NE)
             *  CANT.MANO DEL JUGADOR ANTERIOR   (#1-99)
             *  COLOR NUEVO                      (AZ/AM/VE/RO/NE)
-            *  FINAL DE TRAMA       (%%)
         **/
         
         /*EL COLOR NUEVO ES PARA CUANDO SE TENGA UNA CARTA NEGRA COMO +4 o +2*/
@@ -144,10 +196,9 @@ public class Connector {
         String s=(String) JOptionPane.showInputDialog(new JFrame("NADA"),"Introduce el puerto",
                 "Configuración de puerto", JOptionPane.QUESTION_MESSAGE,null,
                 portNames,portNames[0]);
+        
         System.out.println(s);
         comPort= SerialPort.getCommPort(s);
-        
-  
         
         comPort.setFlowControl(0);
         System.out.println(comPort.getDescriptivePortName());
@@ -157,11 +208,12 @@ public class Connector {
         comPort.addDataListener(listener);
         System.out.println("Event Listener open.");
         
-        String data="AB0113AZ07AZ";
+           
+        String data="AB0110AZ07AZ";
         sentMessage(data);
         //data=null;
         //data="BC0111NE08VE";
-        //sentMessage("BC0111NE08VE");
+        //sentMessage("AB0113AZ07VE");
     }
       public static void sentMessage(String message)
     {
