@@ -344,7 +344,7 @@ public class Connector {
      */
     static public void main(String[] args)  
     {
-         /**
+        /**
             *  Jugador Origen                   (A,B,C,D)
             *  Jugador Destino                  (A,B,C,D)
             *  UNO                              (0,1) 0=tiene uno pero no lo dijo o no tiene uno, 1= tiene uno y lo dijo
