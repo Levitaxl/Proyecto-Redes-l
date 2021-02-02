@@ -158,7 +158,7 @@ public class PickColorFrame extends javax.swing.JFrame {
         popUp.declaredColor = UnoCard.Color.Red;
         popUp.gameStage.setPidName(popUp.game.getCurrentPlayer());
         popUp.gameStage.setButtonIcons();
-        popUp.topCardButton.setIcon(new javax.swing.ImageIcon("C:\\Users\\ruben\\Documents\\NetBeansProjects\\Uno\\src\\main\\java\\com\\uno\\images\\PNGs\\small\\" + popUp.game.getTopCardImage()));
+        popUp.topCardButton.setIcon(new javax.swing.ImageIcon("C:\\Users\\usuario\\Documents\\NetBeansProjects\\RXTX\\src\\unoAttack\\images\\PNGs\\small\\" + popUp.game.getTopCardImage()));
         popUp.game.setCardColor(UnoCard.Color.Red);
         popUp.dispose();
     }//GEN-LAST:event_redButtonActionPerformed
@@ -173,7 +173,7 @@ public class PickColorFrame extends javax.swing.JFrame {
         popUp.declaredColor = UnoCard.Color.Blue;
         popUp.gameStage.setPidName(popUp.game.getCurrentPlayer());
         popUp.gameStage.setButtonIcons();
-        popUp.topCardButton.setIcon(new javax.swing.ImageIcon("C:\\Users\\ruben\\Documents\\NetBeansProjects\\Uno\\src\\main\\java\\com\\uno\\images\\PNGs\\small\\" +popUp.game.getTopCardImage() + ".png"));
+        popUp.topCardButton.setIcon(new javax.swing.ImageIcon("C:\\Users\\usuario\\Documents\\NetBeansProjects\\RXTX\\src\\unoAttack\\images\\PNGs\\small\\" +popUp.game.getTopCardImage() + ".png"));
         popUp.game.setCardColor(UnoCard.Color.Blue);
         popUp.dispose();
     }//GEN-LAST:event_blueButtonActionPerformed
@@ -188,7 +188,7 @@ public class PickColorFrame extends javax.swing.JFrame {
         popUp.declaredColor = UnoCard.Color.Yellow;
         popUp.gameStage.setPidName(popUp.game.getCurrentPlayer());
         popUp.gameStage.setButtonIcons();
-        popUp.topCardButton.setIcon(new javax.swing.ImageIcon("C:\\Users\\ruben\\Documents\\NetBeansProjects\\Uno\\src\\main\\java\\com\\uno\\images\\PNGs\\small\\" + popUp.game.getTopCardImage()));
+        popUp.topCardButton.setIcon(new javax.swing.ImageIcon("C:\\Users\\usuario\\Documents\\NetBeansProjects\\RXTX\\src\\unoAttack\\images\\PNGs\\small\\" + popUp.game.getTopCardImage()));
         popUp.game.setCardColor(UnoCard.Color.Yellow);
         popUp.dispose();
     }//GEN-LAST:event_yellowButtonActionPerformed
@@ -203,7 +203,7 @@ public class PickColorFrame extends javax.swing.JFrame {
         popUp.declaredColor = UnoCard.Color.Green;
         popUp.gameStage.setPidName(popUp.game.getCurrentPlayer());
         popUp.gameStage.setButtonIcons();
-        popUp.topCardButton.setIcon(new javax.swing.ImageIcon("C:\\Users\\ruben\\Documents\\NetBeansProjects\\Uno\\src\\main\\java\\com\\uno\\images\\PNGs\\small\\" + popUp.game.getTopCardImage()));
+        popUp.topCardButton.setIcon(new javax.swing.ImageIcon("C:\\Users\\usuario\\Documents\\NetBeansProjects\\RXTX\\src\\unoAttack\\images\\PNGs\\small\\" + popUp.game.getTopCardImage()));
         popUp.game.setCardColor(UnoCard.Color.Green);
         popUp.dispose();
     }//GEN-LAST:event_greenButtonActionPerformed

@@ -13,7 +13,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
-public class Game {
+public class Game extends Thread  {
     
     private int currentPlayer;
     private String[] playersId;

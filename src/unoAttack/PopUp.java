@@ -38,7 +38,7 @@ public class PopUp extends javax.swing.JFrame {
         playerHand = game.getPlayerHand(game.getCurrentPlayer());
         choice = index;
         this.cardButtons = cardButtons;
-        cardLabel.setIcon(new javax.swing.ImageIcon("C:\\Users\\ruben\\Documents\\GitHub\\Proyecto-Redes-l\\src\\unoAttack\\images\\PNGs\\small\\" + cardImage + ".png"));
+        cardLabel.setIcon(new javax.swing.ImageIcon("C:\\Users\\usuario\\Documents\\NetBeansProjects\\RXTX\\src\\unoAttack\\images\\PNGs\\small\\" + cardImage + ".png"));
         this.gameStage = gameStage;
         this.topCardButton = topCardButton;
         
@@ -157,7 +157,7 @@ public class PopUp extends javax.swing.JFrame {
             if (declaredColor != UnoCard.Color.Wild) {
                 gameStage.setPidName(game.getCurrentPlayer());
                 gameStage.setButtonIcons();
-                topCardButton.setIcon(new javax.swing.ImageIcon("C:\\Users\\ruben\\Documents\\GitHub\\Proyecto-Redes-l\\src\\unoAttack\\images\\PNGs\\small\\" + game.getTopCardImage()));
+                topCardButton.setIcon(new javax.swing.ImageIcon("C:\\Users\\usuario\\Documents\\NetBeansProjects\\RXTX\\src\\unoAttack\\images\\PNGs\\small\\" + game.getTopCardImage()));
                     this.dispose();
                 }
             }
