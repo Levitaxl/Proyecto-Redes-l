@@ -22,7 +22,7 @@ import javax.swing.JOptionPane;
  */
 public class GameStage extends javax.swing.JFrame {
 
-    private AddPlayerName addPlayer = new AddPlayerName();
+    //private AddPlayerName addPlayer = new AddPlayerName();
     ArrayList<String> temp = new ArrayList<>();
     String[] pids;
     Game game;
@@ -34,13 +34,12 @@ public class GameStage extends javax.swing.JFrame {
     /**
      * Creates new form GameStage
      */
-    public GameStage() {}
+
     
-    public GameStage(ArrayList<String> playersId) {
+    public GameStage() {
         initComponents();
-        temp = playersId;
         pids = temp.toArray(new String[temp.size()]);
-        game = new Game(pids);
+        game = new Game();
         popularArrayList();
         game.start(game);
         setPidName();
@@ -53,7 +52,7 @@ public class GameStage extends javax.swing.JFrame {
         String listString = game.getPlayerHand(game.getCurrentPlayer()).stream().map(Object::toString).collect(Collectors.joining(","));
         String[] cardNames = listString.split(",");
         cardsId = new ArrayList<>(Arrays.asList(cardNames));
-        
+       // System.out.println(cardButtons);
         for (int i = 0; i < cardsId.size(); i++) {
             cardButtons.get(i).setIcon(new javax.swing.ImageIcon("C:\\Users\\usuario\\Documents\\NetBeansProjects\\RXTX\\src\\unoAttack\\images\\PNGs\\small\\" + cardsId.get(i) + ".png"));
         }
@@ -84,8 +83,8 @@ public class GameStage extends javax.swing.JFrame {
     }
     
     public void setPidName() {
-        String currentPlayer = game.getCurrentPlayer();
-        pidNameLabel.setText("cartas de " + currentPlayer);
+        //String currentPlayer = game.getCurrentPlayer();
+      //  pidNameLabel.setText("cartas de " + currentPlayer);
         
     }
     
@@ -327,7 +326,7 @@ public class GameStage extends javax.swing.JFrame {
     }//GEN-LAST:event_topCardButtonActionPerformed
 
     private void DrawCardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DrawCardActionPerformed
-        JLabel message = new JLabel(game.getCurrentPlayer() + " ha agarrado una carta");
+        /*JLabel message = new JLabel(game.getCurrentPlayer() + " ha agarrado una carta");
         message.setFont(new Font("Arial", Font.BOLD, 18));
         JOptionPane.showMessageDialog(null, message);
         try {
@@ -338,7 +337,7 @@ public class GameStage extends javax.swing.JFrame {
         }
 
         this.setPidName(game.getCurrentPlayer());
-        this.setButtonIcons();
+        this.setButtonIcons();*/
     }//GEN-LAST:event_DrawCardActionPerformed
 
     private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton15ActionPerformed
