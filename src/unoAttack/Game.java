@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import static unoAttack.Connector.sentMessage;
@@ -34,21 +35,24 @@ public class Game extends Thread  {
     private UnoCard.Color validColor;
     private UnoCard.Value validValue;
     
-    private final SerialPort readPort = SerialPort.getCommPorts()[7];
+    private final SerialPort readPort = SerialPort.getCommPorts()[3];
     private final SerialPort writePort = SerialPort.getCommPorts()[0];
-
+    GameStage gameStage;
+    JButton button;
     boolean gameDirection;
+    private javax.swing.JButton topCardButton2;
 
-    public Game() {
+    public Game(GameStage gameStage2, JButton topButton) {
         deck = new UnoDeck();
         deck.shuffle();
         stockPile = new ArrayList<UnoCard>();
-
         currentPlayer = "A";
         gameDirection = false;
         configurarEventoReceptor();
         this.readPort.openPort();
         System.out.println(readPort.getSystemPortName());
+        gameStage=gameStage2;
+        button=topButton;
 
         playerHand = new ArrayList<ArrayList<UnoCard>>();
         
@@ -106,7 +110,7 @@ public class Game extends Thread  {
                             } while(readPort.bytesAvailable() > 0);
                             in.close();
                             System.out.println(mensaje + "\n");
-                            //checkAction(mensaje);
+                            filter(mensaje);
                         }
                         catch(IOException exception) {
                             System.err.println("Error leyendo mensaje!");
@@ -124,7 +128,7 @@ public class Game extends Thread  {
             System.err.println("Error al configurar el evento para el puerto receptor!");
         }
     }
-
+      /*test 2*/
     public void start (Game game) {
         UnoCard card = deck.drawCard();
         validColor = card.getColor();
@@ -169,8 +173,6 @@ public class Game extends Thread  {
         return this.currentPlayer;
     }
     
-    
-
     public String getPreviousPlayer() {
         return "11";
     }
@@ -178,7 +180,6 @@ public class Game extends Thread  {
     public String[] getPlayers() {
         return playersId;
     }
-    
     
     public ArrayList<UnoCard> getPlayerHand(String pid) {
         //System.out.println(playerHand);
@@ -239,6 +240,7 @@ public class Game extends Thread  {
             ArrayList<UnoCard> playerHand = getPlayerHand(pid);
             
             
+            System.out.println(card.getColor());
             //Condicion para verificar que la carta se jugó corresponda al color y al numero correcto
             if (!validCardPlay(card)) {
 
@@ -321,14 +323,16 @@ public class Game extends Thread  {
                 #15=manotazo?
             */
             
+            /*test*/
+            
             //Condiciones para las cartas
             if (card.getColor() == UnoCard.Color.Wild) {
                 colorDeclarado=AdaptTheColorsToTheTrama(declaredColor.toString());
-                trama=currentPlayer+nextPlayer+uno+sentido+"13"+coloJugado+cantidadCartasEnMano+colorDeclarado+"0";
+                trama=currentPlayer+nextPlayer+uno+"13"+sentido+coloJugado+cantidadCartasEnMano+colorDeclarado+"0";
             }
 
             if (card.getValue() == UnoCard.Value.DrawTwo) {
-                 trama=currentPlayer+nextPlayer+uno+sentido+"12"+coloJugado+cantidadCartasEnMano+coloJugado+"1";
+                 trama=currentPlayer+nextPlayer+uno+"12"+sentido+coloJugado+cantidadCartasEnMano+coloJugado+"1";
                 System.out.println(trama);
                 JLabel message = new JLabel(pid + " ha tomado dos cartas");
                 message.setFont(new Font("Arial", Font.BOLD, 18));
@@ -336,14 +340,14 @@ public class Game extends Thread  {
             }
 
             else if (card.getValue() == UnoCard.Value.DrawFour) {
-                 trama=currentPlayer+nextPlayer+uno+sentido+"14"+coloJugado+cantidadCartasEnMano+colorDeclarado+"1";
+                 trama=currentPlayer+nextPlayer+uno+"14"+sentido+coloJugado+cantidadCartasEnMano+colorDeclarado+"1";
                 JLabel message = new JLabel(pid + " ha tomado cuatro cartas");
                 message.setFont(new Font("Arial", Font.BOLD, 18));
                 JOptionPane.showMessageDialog(null, message);
             }
 
             else if (card.getValue() == UnoCard.Value.SkipTurn) {
-                 trama=currentPlayer+nextPlayer+uno+sentido+"11"+coloJugado+cantidadCartasEnMano+coloJugado+"1";
+                 trama=currentPlayer+nextPlayer+uno+"11"+sentido+coloJugado+cantidadCartasEnMano+coloJugado+"1";
                 JLabel message = new JLabel(nextPlayer + " ha perdido el turno");
                 message.setFont(new Font("Arial", Font.BOLD, 18));
                 JOptionPane.showMessageDialog(null, message);
@@ -364,13 +368,11 @@ public class Game extends Thread  {
                 }
            }
             else{
-                 trama=currentPlayer+nextPlayer+uno+sentido+value+coloJugado+cantidadCartasEnMano+coloJugado+"0";
+                 trama=currentPlayer+nextPlayer+uno+value+sentido+coloJugado+cantidadCartasEnMano+coloJugado+"0";
             }
+            enviarMensaje(trama);
             
-            System.out.println(trama);
     }
-    
-
    public String AdaptTheColorsToTheTrama(String color){
         if(color.equals("Red"))             return "RO";
         else if(color.equals("Blue"))       return "AZ";
@@ -394,6 +396,112 @@ public class Game extends Thread  {
         return "1";
     }
         
+   
+    /*AB0012AZ10AZ1*/
+    //AB0010AM10AM1
+    //AB0001AZ10AZ1
+    //AB00AM10AM1
+   public void filter(String trama){
+        int         nroCarta=parseInt(trama.substring(3,5));
+        String      tipoCarta=trama.substring(6,8);
+        String      colorCarta = null;
+        String      cantidadCartas=trama.substring(8,10);
+        String      nuevoColorCarta=trama.substring(10,12);
+        JLabel message = new JLabel();
+        String         nroCartaString=trama.substring(3,5);
+        System.out.println("La trama es:" +trama);
+        System.out.println("el NUMERO DE CARTA es:" +nroCartaString);
+         
+        
+        //UnoCard.Color test="Yellow";
+        UnoCard.Color color = AdaptTheTramaToTheColor(tipoCarta);
+        UnoCard.Value value = AdaptTheTramaToTheValue(nroCartaString);
+        
+        UnoCard card= new UnoCard(color,value);
+        validColor = card.getColor();
+        validValue = card.getValue();
+        System.out.println(validColor+"-"+validValue);
+        stockPile.add(card);
+        if(nroCarta>9){
+            switch (nroCarta) {
+                case 10:
+                    System.out.println("Reversa de color " + colorCarta);
+                   // generarTramaReversa(carta);
+                    break;
+                case 11:
+                    System.out.println("Bloqueo de color " + colorCarta);
+                   // generarTramaBloqueo(carta);
+                    break;
+                case 12:
+                    System.out.println("+2 de color " + colorCarta);
+                    getPlayerHand(currentPlayer).add(deck.drawCard());
+                    getPlayerHand(currentPlayer).add(deck.drawCard());
+                    message = new JLabel(currentPlayer + " ha tomado dos cartas");
+                    message.setFont(new Font("Arial", Font.BOLD, 18));
+                    JOptionPane.showMessageDialog(null, message);
+                    break;
+                case 13:
+                    System.out.println("Cambia de de color a " + nuevoColorCarta);
+                    
+                    break;
+                case 14:
+                     System.out.println("+4 con nuevo color de carta" + nuevoColorCarta);
+                     getPlayerHand(currentPlayer).add(deck.drawCard());
+                     getPlayerHand(currentPlayer).add(deck.drawCard());
+                     getPlayerHand(currentPlayer).add(deck.drawCard());
+                     getPlayerHand(currentPlayer).add(deck.drawCard());
+                     message = new JLabel(currentPlayer + " ha tomado cuatro cartas");
+                     message.setFont(new Font("Arial", Font.BOLD, 18));
+                     JOptionPane.showMessageDialog(null, message);
+                  //  generarTramaMas4(carta);
+                    break;
+                default:
+                    break;
+            }
+        }
+        
+        else{
+            System.out.println("Número básico");
+            
+        }
+        button.setIcon(new javax.swing.ImageIcon("C:\\Users\\usuario\\Documents\\NetBeansProjects\\RXTX\\src\\unoAttack\\images\\PNGs\\small\\" + getTopCardImage()));
+        System.out.println(getTopCardImage());
+        gameStage.setButtonIcons();
+   }
+   
+   public UnoCard.Color AdaptTheTramaToTheColor(String colorString){
+        UnoCard.Color color = null;
+        if(colorString.equals("AZ"))  return color.Blue;
+        else if(colorString.equals("AM"))  return color.Yellow;
+        else if(colorString.equals("VE"))  return color.Green;
+        else if(colorString.equals("RO"))  return color.Red;
+        else if(colorString.equals("NE"))  return color.Wild;
+        return color.Wild;
+   }
+   
+   public UnoCard.Value AdaptTheTramaToTheValue(String valueString){
+        UnoCard.Value value = null;
+        
+        if(valueString.equals("00"))        return value.Zero;
+        else if(valueString.equals("01"))   return value.One;
+        else if(valueString.equals("02"))   return value.Two;
+        else if(valueString.equals("03"))   return value.Three;
+        else if(valueString.equals("04"))   return value.Four;
+        else if(valueString.equals("05"))   return value.Five;
+        else if(valueString.equals("06"))   return value.Six;
+        else if(valueString.equals("07"))   return value.Seven;
+        else if(valueString.equals("08"))   return value.Eight;
+        else if(valueString.equals("09"))   return value.Nine;
+        else if(valueString.equals("10"))   return value.Reverse;
+        else if(valueString.equals("11"))   return value.SkipTurn;
+        else if(valueString.equals("12"))   return value.DrawTwo;
+        else if(valueString.equals("13"))   return value.ChangeColor;
+        else if(valueString.equals("14"))   return value.DrawFour;
+        
+        return value;
+   }
+
+   
 }
 
 

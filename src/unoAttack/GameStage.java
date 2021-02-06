@@ -36,10 +36,10 @@ public class GameStage extends javax.swing.JFrame {
      */
 
     
-        public GameStage() {
+    public GameStage() {
         initComponents();
         pids = temp.toArray(new String[temp.size()]);
-        game = new Game();
+        game = new Game(this,topCardButton);
         popularArrayList();
         game.start(game);
         setPidName();
@@ -49,6 +49,7 @@ public class GameStage extends javax.swing.JFrame {
     }
     
     public void setButtonIcons() {
+        System.out.println("test");
         String listString = game.getPlayerHand(game.getCurrentPlayer()).stream().map(Object::toString).collect(Collectors.joining(","));
         String[] cardNames = listString.split(",");
         cardsId = new ArrayList<>(Arrays.asList(cardNames));
@@ -59,6 +60,10 @@ public class GameStage extends javax.swing.JFrame {
         for (int i = cardsId.size();  i < cardButtons.size(); i++ ) {
             cardButtons.get(i).setIcon(null);
        }
+    }
+    
+    public void test(){
+        setButtonIcons();
     }
 
     public void popularArrayList() {
