@@ -401,6 +401,8 @@ public class Game extends Thread  {
     //AB0010AM10AM1
     //AB0001AZ10AZ1
     //AB00AM10AM1
+   //AB0020AM10AM1
+   //AB0110AM10AM1
    public void filter(String trama){
         int         nroCarta=parseInt(trama.substring(3,5));
         String      tipoCarta=trama.substring(6,8);
@@ -430,7 +432,9 @@ public class Game extends Thread  {
                     break;
                 case 11:
                     System.out.println("Bloqueo de color " + colorCarta);
-                   // generarTramaBloqueo(carta);
+                    message = new JLabel("Su turno ha sido bloqueado, no puede jugar");
+                    message.setFont(new Font("Arial", Font.BOLD, 18));
+                    JOptionPane.showMessageDialog(null, message);
                     break;
                 case 12:
                     System.out.println("+2 de color " + colorCarta);
@@ -464,7 +468,7 @@ public class Game extends Thread  {
             System.out.println("Número básico");
             
         }
-        button.setIcon(new javax.swing.ImageIcon("C:\\Users\\usuario\\Documents\\NetBeansProjects\\RXTX\\src\\unoAttack\\images\\PNGs\\small\\" + getTopCardImage()));
+        button.setIcon(new javax.swing.ImageIcon("C:\\Users\\usuario\\Documents\\NetBeansProjects\\j2\\src\\unoAttack\\images\\PNGs\\small\\" + getTopCardImage()));
         System.out.println(getTopCardImage());
         gameStage.setButtonIcons();
    }

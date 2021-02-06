@@ -43,7 +43,7 @@ public class GameStage extends javax.swing.JFrame {
         popularArrayList();
         game.start(game);
         setPidName();
-        topCardButton.setIcon(new javax.swing.ImageIcon("C:\\Users\\usuario\\Documents\\NetBeansProjects\\RXTX\\src\\unoAttack\\images\\PNGs\\small\\" + game.getTopCardImage()));
+        topCardButton.setIcon(new javax.swing.ImageIcon("C:\\Users\\usuario\\Documents\\NetBeansProjects\\j2\\src\\unoAttack\\images\\PNGs\\small\\" + game.getTopCardImage()));
         setButtonIcons();
         this.setBounds(0,0, 1280, 720);
     }
@@ -54,7 +54,7 @@ public class GameStage extends javax.swing.JFrame {
         String[] cardNames = listString.split(",");
         cardsId = new ArrayList<>(Arrays.asList(cardNames));
         for (int i = 0; i < cardsId.size(); i++) {
-            cardButtons.get(i).setIcon(new javax.swing.ImageIcon("C:\\Users\\usuario\\Documents\\NetBeansProjects\\RXTX\\src\\unoAttack\\images\\PNGs\\small\\" + cardsId.get(i) + ".png"));
+            cardButtons.get(i).setIcon(new javax.swing.ImageIcon("C:\\Users\\usuario\\Documents\\NetBeansProjects\\j2\\src\\unoAttack\\images\\PNGs\\small\\" + cardsId.get(i) + ".png"));
         }
         
         for (int i = cardsId.size();  i < cardButtons.size(); i++ ) {
