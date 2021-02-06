@@ -36,7 +36,7 @@ public class GameStage extends javax.swing.JFrame {
      */
 
     
-    public GameStage() {
+        public GameStage() {
         initComponents();
         pids = temp.toArray(new String[temp.size()]);
         game = new Game();
@@ -52,7 +52,6 @@ public class GameStage extends javax.swing.JFrame {
         String listString = game.getPlayerHand(game.getCurrentPlayer()).stream().map(Object::toString).collect(Collectors.joining(","));
         String[] cardNames = listString.split(",");
         cardsId = new ArrayList<>(Arrays.asList(cardNames));
-       // System.out.println(cardButtons);
         for (int i = 0; i < cardsId.size(); i++) {
             cardButtons.get(i).setIcon(new javax.swing.ImageIcon("C:\\Users\\usuario\\Documents\\NetBeansProjects\\RXTX\\src\\unoAttack\\images\\PNGs\\small\\" + cardsId.get(i) + ".png"));
         }
@@ -326,7 +325,7 @@ public class GameStage extends javax.swing.JFrame {
     }//GEN-LAST:event_topCardButtonActionPerformed
 
     private void DrawCardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DrawCardActionPerformed
-        /*JLabel message = new JLabel(game.getCurrentPlayer() + " ha agarrado una carta");
+        JLabel message = new JLabel(game.getCurrentPlayer() + " ha agarrado una carta");
         message.setFont(new Font("Arial", Font.BOLD, 18));
         JOptionPane.showMessageDialog(null, message);
         try {
@@ -337,7 +336,7 @@ public class GameStage extends javax.swing.JFrame {
         }
 
         this.setPidName(game.getCurrentPlayer());
-        this.setButtonIcons();*/
+        this.setButtonIcons();
     }//GEN-LAST:event_DrawCardActionPerformed
 
     private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton15ActionPerformed

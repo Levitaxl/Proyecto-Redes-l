@@ -12,17 +12,20 @@ import java.awt.Font;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import static java.lang.Integer.parseInt;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import static unoAttack.Connector.sentMessage;
 
 public class Game extends Thread  {
     
     private String currentPlayer;
     private String[] playersId;
+    private String nextPlayer;
 
     private UnoDeck deck;
     private ArrayList<ArrayList<UnoCard>> playerHand;
@@ -41,7 +44,7 @@ public class Game extends Thread  {
         deck.shuffle();
         stockPile = new ArrayList<UnoCard>();
 
-        currentPlayer = "00";
+        currentPlayer = "A";
         gameDirection = false;
         configurarEventoReceptor();
         this.readPort.openPort();
@@ -162,14 +165,6 @@ public class Game extends Thread  {
         return new ImageIcon(validColor + "_" + validValue + ".png");
     }
     
-    // public boolean isGameOver() {
-    //     for (String player: this.playersId) {
-    //         if(playerHand.size() == 0 ) {
-
-    //         }
-    //     }
-    // }
-
     public String getCurrentPlayer() {
         return this.currentPlayer;
     }
@@ -238,9 +233,13 @@ public class Game extends Thread  {
     public void submitPlayerCard (String pid, UnoCard card, UnoCard.Color declaredColor) 
         throws InvalidColorSubmissionException, InvalidPlayerTurnException, InvalidValueSubmissionException {
             checkPlayerTurn(pid);
+            
+      
 
             ArrayList<UnoCard> playerHand = getPlayerHand(pid);
             
+            
+            //Condicion para verificar que la carta se jugó corresponda al color y al numero correcto
             if (!validCardPlay(card)) {
 
                 if (card.getColor() == UnoCard.Color.Wild) {
@@ -270,57 +269,88 @@ public class Game extends Thread  {
                 JOptionPane.showMessageDialog(null, message3);
                 System.exit(0);
             }
-
+            
+            System.err.println(card.getColor());
+            System.err.println(card.getValue());
             validColor = card.getColor();
             validValue = card.getValue();
             stockPile.add(card);
+            
+            
+            //System.out.println(validValue);
+            
+            
+            
+            //CONDICIONES PARA LA TRAMA
+            //Condiciones para ver cual es el siguiente jugador
+            //Cambiar dependiendo de el jugador.
+            nextPlayer=(gameDirection == false)?"B":"D";
+            
+            String sentido=(gameDirection == true)?"1":"0";
+            String coloJugado=AdaptTheColorsToTheTrama(validColor.toString());
+            String colorDeclarado=AdaptTheColorsToTheTrama(declaredColor.toString());
+            String value=AdaptTheValueToTheTrama(validValue.toString());
+            String uno="0";
+            String cantidadCartasEnMano=String.valueOf(getPlayerHandSize(pid));
+            String trama="";
+            
+            
+            if(Integer.parseInt(cantidadCartasEnMano)<10)cantidadCartasEnMano="0"+cantidadCartasEnMano;
+            
+             /**
+            *  Jugador Origen                   (A,B,C,D)
+            *  Jugador Destino                  (A,B,C,D)
+            *  UNO                              (0,1) 0=tiene uno pero no lo dijo o no tiene uno, 1= tiene uno y lo dijo
+            *  SENTIDO                          (0,1) 0=izquierda, 1=derecha
+            *  CARTA JUGADA                     (#1-16,AZ/AM/VE/RO/NE)
+            *  CANT.MANO DEL JUGADOR ANTERIOR   (#1-99)
+            *  COLOR NUEVO                      (AZ/AM/VE/RO/NE)
+            * BLOQUEADO                         (0,1)0=no esta bloqueado, 1= esta bloqueado
+            **/
+        
+            /*EL COLOR NUEVO ES PARA CUANDO SE TENGA UNA CARTA NEGRA COMO +4 o +2*/
 
-            if (gameDirection == false) {
-                currentPlayer = "01";
-            }
-            else if (gameDirection == true) {
-                currentPlayer = "11";
-            }
-
+            /*
+                NROS DE CARTAS
+                #0-9/ Cualquier Color
+                #10=reversa
+                #11=bloqueo
+                #12=+2
+                #13=cambia color
+                #14=+4
+                #15=manotazo?
+            */
+            
+            //Condiciones para las cartas
             if (card.getColor() == UnoCard.Color.Wild) {
-                validColor = declaredColor;
+                colorDeclarado=AdaptTheColorsToTheTrama(declaredColor.toString());
+                trama=currentPlayer+nextPlayer+uno+sentido+"13"+coloJugado+cantidadCartasEnMano+colorDeclarado+"0";
             }
 
             if (card.getValue() == UnoCard.Value.DrawTwo) {
-                pid = currentPlayer;
-                getPlayerHand(pid).add(deck.drawCard());
-                getPlayerHand(pid).add(deck.drawCard());
+                 trama=currentPlayer+nextPlayer+uno+sentido+"12"+coloJugado+cantidadCartasEnMano+coloJugado+"1";
+                System.out.println(trama);
                 JLabel message = new JLabel(pid + " ha tomado dos cartas");
                 message.setFont(new Font("Arial", Font.BOLD, 18));
                 JOptionPane.showMessageDialog(null, message);
             }
 
-            if (card.getValue() == UnoCard.Value.DrawFour) {
-                pid = currentPlayer;
-                getPlayerHand(pid).add(deck.drawCard());
-                getPlayerHand(pid).add(deck.drawCard());
-                getPlayerHand(pid).add(deck.drawCard());
-                getPlayerHand(pid).add(deck.drawCard());
+            else if (card.getValue() == UnoCard.Value.DrawFour) {
+                 trama=currentPlayer+nextPlayer+uno+sentido+"14"+coloJugado+cantidadCartasEnMano+colorDeclarado+"1";
                 JLabel message = new JLabel(pid + " ha tomado cuatro cartas");
                 message.setFont(new Font("Arial", Font.BOLD, 18));
                 JOptionPane.showMessageDialog(null, message);
-            
             }
 
-              if (card.getValue() == UnoCard.Value.SkipTurn) {
-                JLabel message = new JLabel(currentPlayer + " ha perdido el turno");
+            else if (card.getValue() == UnoCard.Value.SkipTurn) {
+                 trama=currentPlayer+nextPlayer+uno+sentido+"11"+coloJugado+cantidadCartasEnMano+coloJugado+"1";
+                JLabel message = new JLabel(nextPlayer + " ha perdido el turno");
                 message.setFont(new Font("Arial", Font.BOLD, 18));
                 JOptionPane.showMessageDialog(null, message);
-
-                if(gameDirection == false) {
-                    currentPlayer = "01";
-                }
-                else if (gameDirection == true) {
-                    currentPlayer = "11";
-                }
             }
 
-             if (card.getValue() == UnoCard.Value.Reverse) {
+            else  if (card.getValue() == UnoCard.Value.Reverse) {
+                //Este lo voy a dejar para el final
                 JLabel message = new JLabel(getPreviousPlayer() + " ha cambiado la direccion");
                 message.setFont(new Font("Arial", Font.BOLD, 18));
                 JOptionPane.showMessageDialog(null, message);
@@ -333,6 +363,35 @@ public class Game extends Thread  {
                     currentPlayer = "11";
                 }
            }
+            else{
+                 trama=currentPlayer+nextPlayer+uno+sentido+value+coloJugado+cantidadCartasEnMano+coloJugado+"0";
+            }
+            
+            System.out.println(trama);
+    }
+    
+
+   public String AdaptTheColorsToTheTrama(String color){
+        if(color.equals("Red"))             return "RO";
+        else if(color.equals("Blue"))       return "AZ";
+        else if(color.equals("Yellow"))     return "AM";
+        else if(color.equals("Green"))      return "VE";
+        else if(color.equals("Wild"))       return "NE";
+        return "1";
+    }
+   
+   public String AdaptTheValueToTheTrama(String value){
+        if(value.equals("Zero"))        return "00";
+        else if(value.equals("One"))    return "01";
+        else if(value.equals("Two"))    return "02";
+        else if(value.equals("Three"))  return "03";
+        else if(value.equals("Four"))   return "04";
+        else if(value.equals("Five"))   return "05";
+        else if(value.equals("Six"))    return "06";
+        else if(value.equals("Seven"))  return "07";
+        else if(value.equals("Eight"))  return "08";
+        else if(value.equals("Nine"))   return "09";
+        return "1";
     }
         
 }

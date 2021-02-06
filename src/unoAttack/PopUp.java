@@ -139,6 +139,7 @@ public class PopUp extends javax.swing.JFrame {
         PickColorFrame pickColor = new PickColorFrame(this);
         declaredColor = pickColor.choseColor(playerHand.get(choice));
 
+
         if (declaredColor != null) {
             try {
                 game.submitPlayerCard(game.getCurrentPlayer(), playerHand.get(choice), declaredColor);
