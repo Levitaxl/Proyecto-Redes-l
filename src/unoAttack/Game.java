@@ -145,8 +145,8 @@ public class Game extends Thread  {
             message.setFont(new Font("Arial", Font.BOLD, 18));
             JOptionPane.showMessageDialog(null, message);
 
-            if (gameDirection == false)     currentPlayer = "11";
-            else if (gameDirection == true) currentPlayer = "01";
+            if (gameDirection == false)     currentPlayer = "B";
+            else if (gameDirection == true) currentPlayer = "D";
        
         }
 
@@ -155,7 +155,7 @@ public class Game extends Thread  {
             message.setFont(new Font("Arial", Font.BOLD, 18));
             JOptionPane.showMessageDialog(null, message);
             gameDirection = true;
-            currentPlayer = "01"; 
+            currentPlayer = "A"; 
         }
 
        stockPile.add(card);
@@ -174,7 +174,7 @@ public class Game extends Thread  {
     }
     
     public String getPreviousPlayer() {
-        return "11";
+        return "D";
     }
 
     public String[] getPlayers() {
@@ -220,10 +220,10 @@ public class Game extends Thread  {
         getPlayerHand(pid).add(deck.drawCard());
         
         if (gameDirection == false) {
-            currentPlayer = "01";
+            currentPlayer = "B";
         }
         else if (gameDirection == true) {
-            currentPlayer = "11";
+            currentPlayer = "D";
         }
     }
 
@@ -236,9 +236,9 @@ public class Game extends Thread  {
             checkPlayerTurn(pid);
             
             
-           System.out.println("El color antiguo es "+card.getColor());
-           System.out.println("El valor antiguo es "+card.getValue());
-           System.out.println("El color nuevo es "+declaredColor);
+           //System.out.println("El color antiguo es "+card.getColor());
+           //System.out.println("El valor antiguo es "+card.getValue());
+           //System.out.println("El color nuevo es "+declaredColor);
            
            
 
@@ -298,11 +298,7 @@ public class Game extends Thread  {
             String cantidadCartasEnMano=String.valueOf(getPlayerHandSize(pid));
             String trama="";
             
-            if(coloJugado.equals("NE") && colorDeclarado.equals("NE")) System.out.println("2ble negro");
-            else{
-            if(Integer.parseInt(cantidadCartasEnMano)<10)cantidadCartasEnMano="0"+cantidadCartasEnMano;
-            
-             /**
+                         /**
             *  Jugador Origen                   (A,B,C,D)
             *  Jugador Destino                  (A,B,C,D)
             *  UNO                              (0,1) 0=tiene uno pero no lo dijo o no tiene uno, 1= tiene uno y lo dijo
@@ -325,27 +321,42 @@ public class Game extends Thread  {
                 #14=+4
             */
             
-            /*test*/
+            //AB0140NE11AZ1
+            //BB010AM07AM0
             
+            if(coloJugado.equals("NE") && colorDeclarado.equals("NE")) System.out.println("2ble negro");
+            else{
+            if(Integer.parseInt(cantidadCartasEnMano)<10)cantidadCartasEnMano="0"+cantidadCartasEnMano;
             //Condiciones para las cartas
             if (card.getColor() == UnoCard.Color.Wild) {
                 colorDeclarado=AdaptTheColorsToTheTrama(validColor.toString());
-                trama=currentPlayer+nextPlayer+uno+"13"+sentido+"NE"+cantidadCartasEnMano+colorDeclarado+"0";
+                // trama=currentPlayer+nextPlayer+uno+"10"+sentido+"NE"+cantidadCartasEnMano+colorDeclarado+"0";
+                 //trama=currentPlayer+nextPlayer+uno+"10"+sentido+"NE"+cantidadCartasEnMano+colorDeclarado+"0";
             }
 
             if (card.getValue() == UnoCard.Value.DrawTwo) {
                  trama=currentPlayer+nextPlayer+uno+"12"+sentido+coloJugado+cantidadCartasEnMano+coloJugado+"1";
-              //  System.out.println(trama);
+                getPlayerHand(pid).add(deck.drawCard());
+                getPlayerHand(pid).add(deck.drawCard());
                 JLabel message = new JLabel(pid + " ha tomado dos cartas");
                 message.setFont(new Font("Arial", Font.BOLD, 18));
                 JOptionPane.showMessageDialog(null, message);
             }
 
             else if (card.getValue() == UnoCard.Value.DrawFour) {
-                 trama=currentPlayer+nextPlayer+uno+"14"+sentido+"NE"+cantidadCartasEnMano+colorDeclarado+"1";
+                trama=currentPlayer+nextPlayer+uno+"14"+sentido+"NE"+cantidadCartasEnMano+colorDeclarado+"1";
                 JLabel message = new JLabel(pid + " ha tomado cuatro cartas");
                 message.setFont(new Font("Arial", Font.BOLD, 18));
                 JOptionPane.showMessageDialog(null, message);
+            }
+            
+            else if(card.getValue() == UnoCard.Value.ChangeColor){
+                
+                 trama=currentPlayer+nextPlayer+uno+"13"+sentido+"NE"+cantidadCartasEnMano+colorDeclarado+"0";
+                JLabel message = new JLabel(pid + " ha tomado cuatro cartas");
+                message.setFont(new Font("Arial", Font.BOLD, 18));
+                JOptionPane.showMessageDialog(null, message);
+                
             }
 
             else if (card.getValue() == UnoCard.Value.SkipTurn) {
@@ -363,10 +374,10 @@ public class Game extends Thread  {
 
                 gameDirection ^= true; //si va hacia delante 
                 if(gameDirection == true) {
-                   currentPlayer = "01";
+                   currentPlayer = "B";
                 }
                 else if (gameDirection == false) { //si va hacia atras
-                    currentPlayer = "11";
+                    currentPlayer = "D";
                 }
            }
             else{
@@ -414,8 +425,10 @@ public class Game extends Thread  {
         String      nuevoColorCarta=trama.substring(10,12);
         JLabel message = new JLabel();
         String         nroCartaString=trama.substring(3,5);
-       // System.out.println("La trama es:" +trama);
+        System.out.println("El nuevo color es " +nuevoColorCarta);
        // System.out.println("el NUMERO DE CARTA es:" +nroCartaString);
+       
+       
          
         
         //UnoCard.Color test="Yellow";
@@ -473,6 +486,7 @@ public class Game extends Thread  {
         }
         button.setIcon(new javax.swing.ImageIcon("C:\\Users\\usuario\\Documents\\NetBeansProjects\\j2\\src\\unoAttack\\images\\PNGs\\small\\" + getTopCardImage()));
         System.out.println(getTopCardImage());
+         validColor = AdaptTheTramaToTheColor(nuevoColorCarta);
         gameStage.setButtonIcons();
    }
    
