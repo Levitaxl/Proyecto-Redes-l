@@ -219,7 +219,7 @@ public class GameStage extends javax.swing.JFrame {
             }
         });
 
-        DrawCard.setIcon(new javax.swing.ImageIcon("C:\\Users\\ruben\\Documents\\GitHub\\Proyecto-Redes-l\\src\\unoAttack\\images\\PNGs\\small\\card_back.png")); // NOI18N
+        DrawCard.setIcon(new javax.swing.ImageIcon("C:\\Users\\usuario\\Documents\\NetBeansProjects\\j2\\src\\unoAttack\\images\\PNGs\\small\\card_back.png")); // NOI18N
         DrawCard.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 DrawCardActionPerformed(evt);
