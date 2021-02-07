@@ -25,6 +25,7 @@ public class PopUp extends javax.swing.JFrame {
     JButton topCardButton;
     UnoCard.Color declaredColor;
     UnoCard.Color newColor;
+    UnoCard.Value newValue;
     
     
     /**
@@ -46,13 +47,19 @@ public class PopUp extends javax.swing.JFrame {
     }
     
     public void updateNewColor() { 
-        PickColorFrame pickColor = new PickColorFrame();
+        //PickColorFrame pickColor = new PickColorFrame();
         //declaredColor = pickColor.choseColor(playerHand.get(choice));
         //newColor=playerHand.get(choice).getColor();
+        UnoCard.Color color = UnoCard.Color.Wild;
+        UnoCard.Value value = newValue;
+        
+        UnoCard newCard= new UnoCard(color,value);
         System.out.println("EL COLOR NUEVO ES"+declaredColor);
+        //System.out.println(playerHand.get(choice).getColor());
+        
         if (declaredColor != null) {
             try {
-                game.submitPlayerCard(game.getCurrentPlayer(), playerHand.get(choice), declaredColor);
+                game.submitPlayerCard(game.getCurrentPlayer(), newCard,declaredColor,null);
             }
             catch (InvalidColorSubmissionException e) {
                 Logger.getLogger(PopUp.class.getName()).log(Level.SEVERE, null, e);
@@ -170,13 +177,14 @@ public class PopUp extends javax.swing.JFrame {
         PickColorFrame pickColor = new PickColorFrame(this);
         declaredColor = pickColor.choseColor(playerHand.get(choice));
         newColor=playerHand.get(choice).getColor();
-        System.out.println("El nuevo color es"+newColor);
+        newValue=playerHand.get(choice).getValue();
+        //System.out.println("El nuevo color es"+newColor);
         
 
 
-        if (declaredColor != null && declaredColor != UnoCard.Color.Wild) {
+        if (declaredColor != null) {
             try {
-                game.submitPlayerCard(game.getCurrentPlayer(), playerHand.get(choice), declaredColor);
+                game.submitPlayerCard(game.getCurrentPlayer(), playerHand.get(choice), declaredColor,null);
             }
             catch (InvalidColorSubmissionException e) {
                 Logger.getLogger(PopUp.class.getName()).log(Level.SEVERE, null, e);

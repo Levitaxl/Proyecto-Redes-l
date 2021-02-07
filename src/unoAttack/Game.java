@@ -231,12 +231,16 @@ public class Game extends Thread  {
         validColor = color;
     }
 
-    public void submitPlayerCard (String pid, UnoCard card, UnoCard.Color declaredColor) 
+    public void submitPlayerCard (String pid, UnoCard card, UnoCard.Color declaredColor,UnoCard.Color newColor) 
         throws InvalidColorSubmissionException, InvalidPlayerTurnException, InvalidValueSubmissionException {
             checkPlayerTurn(pid);
             
             
-            System.out.println(card.getColor());
+           System.out.println("El color antiguo es "+card.getColor());
+           System.out.println("El valor antiguo es "+card.getValue());
+           System.out.println("El color nuevo es "+declaredColor);
+           
+           
 
             ArrayList<UnoCard> playerHand = getPlayerHand(pid);
             
@@ -246,10 +250,9 @@ public class Game extends Thread  {
             if (!validCardPlay(card)) {
 
                 if (card.getColor() == UnoCard.Color.Wild) {
-                    validColor = card.getColor();
+                    validColor = declaredColor;
                     validValue = card.getValue();
                 }
-
                 if (card.getColor() != validColor) {
                     JLabel message = new JLabel("Movimiento Invalido, color esperado " + validColor + " estas colocando" + card.getColor());
                     message.setFont(new Font("Arial", Font.BOLD, 18));
@@ -272,17 +275,14 @@ public class Game extends Thread  {
                 JOptionPane.showMessageDialog(null, message3);
                 System.exit(0);
             }
-            System.out.println("El nuevo color valido es"+ validColor);
+            //System.out.println("El nuevo color valido es"+ validColor);
             
             //System.err.println(card.getColor());
             //System.err.println(card.getValue());
-            validColor = card.getColor();
+            validColor = declaredColor;
             validValue = card.getValue();
             stockPile.add(card);
-            
-            
-            //System.out.println(validValue);
-            
+  
             
             
             //CONDICIONES PARA LA TRAMA
@@ -298,7 +298,8 @@ public class Game extends Thread  {
             String cantidadCartasEnMano=String.valueOf(getPlayerHandSize(pid));
             String trama="";
             
-            
+            if(coloJugado.equals("NE") && colorDeclarado.equals("NE")) System.out.println("2ble negro");
+            else{
             if(Integer.parseInt(cantidadCartasEnMano)<10)cantidadCartasEnMano="0"+cantidadCartasEnMano;
             
              /**
@@ -328,8 +329,8 @@ public class Game extends Thread  {
             
             //Condiciones para las cartas
             if (card.getColor() == UnoCard.Color.Wild) {
-                colorDeclarado=AdaptTheColorsToTheTrama(declaredColor.toString());
-                trama=currentPlayer+nextPlayer+uno+"13"+sentido+coloJugado+cantidadCartasEnMano+colorDeclarado+"0";
+                colorDeclarado=AdaptTheColorsToTheTrama(validColor.toString());
+                trama=currentPlayer+nextPlayer+uno+"13"+sentido+"NE"+cantidadCartasEnMano+colorDeclarado+"0";
             }
 
             if (card.getValue() == UnoCard.Value.DrawTwo) {
@@ -341,7 +342,7 @@ public class Game extends Thread  {
             }
 
             else if (card.getValue() == UnoCard.Value.DrawFour) {
-                 trama=currentPlayer+nextPlayer+uno+"14"+sentido+coloJugado+cantidadCartasEnMano+colorDeclarado+"1";
+                 trama=currentPlayer+nextPlayer+uno+"14"+sentido+"NE"+cantidadCartasEnMano+colorDeclarado+"1";
                 JLabel message = new JLabel(pid + " ha tomado cuatro cartas");
                 message.setFont(new Font("Arial", Font.BOLD, 18));
                 JOptionPane.showMessageDialog(null, message);
@@ -372,6 +373,7 @@ public class Game extends Thread  {
                  trama=currentPlayer+nextPlayer+uno+value+sentido+coloJugado+cantidadCartasEnMano+coloJugado+"0";
             }
             enviarMensaje(trama);
+            }
             
     }
    public String AdaptTheColorsToTheTrama(String color){
