@@ -49,7 +49,6 @@ public class GameStage extends javax.swing.JFrame {
     }
     
     public void setButtonIcons() {
-        System.out.println("test");
         String listString = game.getPlayerHand(game.getCurrentPlayer()).stream().map(Object::toString).collect(Collectors.joining(","));
         String[] cardNames = listString.split(",");
         cardsId = new ArrayList<>(Arrays.asList(cardNames));

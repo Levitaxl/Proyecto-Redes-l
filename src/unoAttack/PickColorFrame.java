@@ -43,6 +43,10 @@ public class PickColorFrame extends javax.swing.JFrame {
         
         return card.getColor();
     }
+    
+       public UnoCard.Color getNewColor () {
+         return wildColor;
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -160,6 +164,7 @@ public class PickColorFrame extends javax.swing.JFrame {
         popUp.gameStage.setButtonIcons();
         popUp.topCardButton.setIcon(new javax.swing.ImageIcon("C:\\Users\\usuario\\Documents\\NetBeansProjects\\j2\\src\\unoAttack\\images\\PNGs\\small\\" + popUp.game.getTopCardImage()));
         popUp.game.setCardColor(UnoCard.Color.Red);
+        popUp.updateNewColor();
         popUp.dispose();
     }//GEN-LAST:event_redButtonActionPerformed
 
@@ -175,6 +180,7 @@ public class PickColorFrame extends javax.swing.JFrame {
         popUp.gameStage.setButtonIcons();
         popUp.topCardButton.setIcon(new javax.swing.ImageIcon("C:\\Users\\usuario\\Documents\\NetBeansProjects\\j2\\src\\unoAttack\\images\\PNGs\\small\\" +popUp.game.getTopCardImage() + ".png"));
         popUp.game.setCardColor(UnoCard.Color.Blue);
+         popUp.updateNewColor();
         popUp.dispose();
     }//GEN-LAST:event_blueButtonActionPerformed
 
@@ -190,6 +196,7 @@ public class PickColorFrame extends javax.swing.JFrame {
         popUp.gameStage.setButtonIcons();
         popUp.topCardButton.setIcon(new javax.swing.ImageIcon("C:\\Users\\usuario\\Documents\\NetBeansProjects\\j2\\src\\unoAttack\\images\\PNGs\\small\\" + popUp.game.getTopCardImage()));
         popUp.game.setCardColor(UnoCard.Color.Yellow);
+         popUp.updateNewColor();
         popUp.dispose();
     }//GEN-LAST:event_yellowButtonActionPerformed
 
@@ -205,6 +212,7 @@ public class PickColorFrame extends javax.swing.JFrame {
         popUp.gameStage.setButtonIcons();
         popUp.topCardButton.setIcon(new javax.swing.ImageIcon("C:\\Users\\usuario\\Documents\\NetBeansProjects\\j2\\src\\unoAttack\\images\\PNGs\\small\\" + popUp.game.getTopCardImage()));
         popUp.game.setCardColor(UnoCard.Color.Green);
+         popUp.updateNewColor();
         popUp.dispose();
     }//GEN-LAST:event_greenButtonActionPerformed
 

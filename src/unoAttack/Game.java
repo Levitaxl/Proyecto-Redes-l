@@ -235,12 +235,13 @@ public class Game extends Thread  {
         throws InvalidColorSubmissionException, InvalidPlayerTurnException, InvalidValueSubmissionException {
             checkPlayerTurn(pid);
             
-      
+            
+            System.out.println(card.getColor());
 
             ArrayList<UnoCard> playerHand = getPlayerHand(pid);
             
             
-            System.out.println(card.getColor());
+          //  System.out.println(card.getColor());
             //Condicion para verificar que la carta se jugó corresponda al color y al numero correcto
             if (!validCardPlay(card)) {
 
@@ -271,9 +272,10 @@ public class Game extends Thread  {
                 JOptionPane.showMessageDialog(null, message3);
                 System.exit(0);
             }
+            System.out.println("El nuevo color valido es"+ validColor);
             
-            System.err.println(card.getColor());
-            System.err.println(card.getValue());
+            //System.err.println(card.getColor());
+            //System.err.println(card.getValue());
             validColor = card.getColor();
             validValue = card.getValue();
             stockPile.add(card);
@@ -320,7 +322,6 @@ public class Game extends Thread  {
                 #12=+2
                 #13=cambia color
                 #14=+4
-                #15=manotazo?
             */
             
             /*test*/
@@ -333,7 +334,7 @@ public class Game extends Thread  {
 
             if (card.getValue() == UnoCard.Value.DrawTwo) {
                  trama=currentPlayer+nextPlayer+uno+"12"+sentido+coloJugado+cantidadCartasEnMano+coloJugado+"1";
-                System.out.println(trama);
+              //  System.out.println(trama);
                 JLabel message = new JLabel(pid + " ha tomado dos cartas");
                 message.setFont(new Font("Arial", Font.BOLD, 18));
                 JOptionPane.showMessageDialog(null, message);
@@ -411,8 +412,8 @@ public class Game extends Thread  {
         String      nuevoColorCarta=trama.substring(10,12);
         JLabel message = new JLabel();
         String         nroCartaString=trama.substring(3,5);
-        System.out.println("La trama es:" +trama);
-        System.out.println("el NUMERO DE CARTA es:" +nroCartaString);
+       // System.out.println("La trama es:" +trama);
+       // System.out.println("el NUMERO DE CARTA es:" +nroCartaString);
          
         
         //UnoCard.Color test="Yellow";

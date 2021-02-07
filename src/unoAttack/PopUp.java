@@ -24,6 +24,7 @@ public class PopUp extends javax.swing.JFrame {
     GameStage gameStage;
     JButton topCardButton;
     UnoCard.Color declaredColor;
+    UnoCard.Color newColor;
     
     
     /**
@@ -42,6 +43,36 @@ public class PopUp extends javax.swing.JFrame {
         this.gameStage = gameStage;
         this.topCardButton = topCardButton;
         
+    }
+    
+    public void updateNewColor() { 
+        PickColorFrame pickColor = new PickColorFrame();
+        //declaredColor = pickColor.choseColor(playerHand.get(choice));
+        //newColor=playerHand.get(choice).getColor();
+        System.out.println("EL COLOR NUEVO ES"+declaredColor);
+        if (declaredColor != null) {
+            try {
+                game.submitPlayerCard(game.getCurrentPlayer(), playerHand.get(choice), declaredColor);
+            }
+            catch (InvalidColorSubmissionException e) {
+                Logger.getLogger(PopUp.class.getName()).log(Level.SEVERE, null, e);
+            }
+            catch (InvalidValueSubmissionException ex) {
+                Logger.getLogger(PopUp.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            catch (InvalidPlayerTurnException e) {
+                Logger.getLogger(PopUp.class.getName()).log(Level.SEVERE, null, e);
+            }
+            this.revalidate();
+            if (declaredColor != UnoCard.Color.Wild) {
+                gameStage.setPidName(game.getCurrentPlayer());
+                gameStage.setButtonIcons();
+                
+                topCardButton.setIcon(new javax.swing.ImageIcon("C:\\Users\\usuario\\Documents\\NetBeansProjects\\j2\\src\\unoAttack\\images\\PNGs\\small\\" + game.getTopCardImage()));
+                    this.dispose();
+                }
+        }
     }
 
     /**
@@ -138,9 +169,12 @@ public class PopUp extends javax.swing.JFrame {
     private void useCardButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_useCardButtonActionPerformed
         PickColorFrame pickColor = new PickColorFrame(this);
         declaredColor = pickColor.choseColor(playerHand.get(choice));
+        newColor=playerHand.get(choice).getColor();
+        System.out.println("El nuevo color es"+newColor);
+        
 
 
-        if (declaredColor != null) {
+        if (declaredColor != null && declaredColor != UnoCard.Color.Wild) {
             try {
                 game.submitPlayerCard(game.getCurrentPlayer(), playerHand.get(choice), declaredColor);
             }
@@ -158,10 +192,11 @@ public class PopUp extends javax.swing.JFrame {
             if (declaredColor != UnoCard.Color.Wild) {
                 gameStage.setPidName(game.getCurrentPlayer());
                 gameStage.setButtonIcons();
+                
                 topCardButton.setIcon(new javax.swing.ImageIcon("C:\\Users\\usuario\\Documents\\NetBeansProjects\\j2\\src\\unoAttack\\images\\PNGs\\small\\" + game.getTopCardImage()));
                     this.dispose();
                 }
-            }
+        }
     }//GEN-LAST:event_useCardButtonActionPerformed
 
     /**
