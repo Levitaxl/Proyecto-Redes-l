@@ -352,7 +352,7 @@ public class Game extends Thread  {
             
             else if(card.getValue() == UnoCard.Value.ChangeColor){
                 
-                 trama=currentPlayer+nextPlayer+uno+"13"+sentido+"NE"+cantidadCartasEnMano+colorDeclarado+"0";
+                trama=currentPlayer+nextPlayer+uno+"13"+sentido+"NE"+cantidadCartasEnMano+colorDeclarado+"0";
                 JLabel message = new JLabel(pid + " ha tomado cuatro cartas");
                 message.setFont(new Font("Arial", Font.BOLD, 18));
                 JOptionPane.showMessageDialog(null, message);
