@@ -27,6 +27,7 @@ public class Game extends Thread  {
     private String currentPlayer;
     private String[] playersId;
     private String nextPlayer;
+    boolean uno;
 
     private UnoDeck deck;
     private ArrayList<ArrayList<UnoCard>> playerHand;
@@ -53,13 +54,13 @@ public class Game extends Thread  {
         System.out.println(readPort.getSystemPortName());
         gameStage=gameStage2;
         button=topButton;
-
+        uno = false;
         playerHand = new ArrayList<ArrayList<UnoCard>>();
         
         ArrayList<UnoCard> hand = new ArrayList<UnoCard>(Arrays.asList(deck.drawCard(7)));
         playerHand.add(hand);
     }
-    
+
      public void enviarMensaje(String mensaje) {
         System.out.println("\n Enviando mensaje...");
         try {
@@ -208,6 +209,14 @@ public class Game extends Thread  {
             throw new InvalidPlayerTurnException("No es tu turno", pid);
         }
     }
+
+    public boolean sayUno (String pid) {
+        if (getPlayerHandSize(pid) == 1) {
+            return true;
+        }   
+        return false;
+    }
+    
 
     public void submitDraw(String pid) throws InvalidPlayerTurnException {
         checkPlayerTurn(pid);

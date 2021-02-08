@@ -46,6 +46,7 @@ public class GameStage extends javax.swing.JFrame {
         topCardButton.setIcon(new javax.swing.ImageIcon("C:\\Users\\usuario\\Documents\\NetBeansProjects\\j2\\src\\unoAttack\\images\\PNGs\\small\\" + game.getTopCardImage()));
         setButtonIcons();
         this.setBounds(0,0, 1280, 720);
+        popUpUno(game); // si tiene una carta deberia aparecer el dialog para decir uno
     }
     
     public void setButtonIcons() {
@@ -93,6 +94,13 @@ public class GameStage extends javax.swing.JFrame {
     
     public void setPidName(String currentPlayer){
         pidNameLabel.setText("cartas de " + currentPlayer);
+    }
+    
+    public void popUpUno (Game game) {
+        if (game.getPlayerHandSize(game.getCurrentPlayer()) == 1) {
+            PopUoUno popup = new PopUoUno(game);
+            popup.setVisible(true);
+        }
     }
     
     /**
@@ -219,7 +227,6 @@ public class GameStage extends javax.swing.JFrame {
             }
         });
 
-        DrawCard.setIcon(new javax.swing.ImageIcon("C:\\Users\\usuario\\Documents\\NetBeansProjects\\j2\\src\\unoAttack\\images\\PNGs\\small\\card_back.png")); // NOI18N
         DrawCard.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 DrawCardActionPerformed(evt);
@@ -286,7 +293,7 @@ public class GameStage extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap(196, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(DrawCard)
+                    .addComponent(DrawCard, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(topCardButton, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(158, 158, 158)
                 .addComponent(pidNameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
