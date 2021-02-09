@@ -54,7 +54,7 @@ public class PopUp extends javax.swing.JFrame {
         UnoCard.Value value = newValue;
         
         UnoCard newCard= new UnoCard(color,value);
-        System.out.println("EL COLOR NUEVO ES"+declaredColor);
+        System.out.println("EL COLOR NUEVO ES "+declaredColor);
         //System.out.println(playerHand.get(choice).getColor());
         
         if (declaredColor != null) {

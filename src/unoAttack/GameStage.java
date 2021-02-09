@@ -43,10 +43,26 @@ public class GameStage extends javax.swing.JFrame {
         popularArrayList();
         game.start(game);
         setPidName();
-        topCardButton.setIcon(new javax.swing.ImageIcon("C:\\Users\\usuario\\Documents\\NetBeansProjects\\j2\\src\\unoAttack\\images\\PNGs\\small\\" + game.getTopCardImage()));
+        topCardButton.setIcon(new javax.swing.ImageIcon("C:\\Users\\ruben\\Documents\\GitHub\\Proyecto-Redes-l\\src\\unoAttack\\images\\PNGs\\small\\" + game.getTopCardImage()));
         setButtonIcons();
-        this.setBounds(0,0, 1280, 720);
+        //this.setBounds(0,0, 1280, 720);
+        this.setSize(1220, 730);
         popUpUno(game); // si tiene una carta deberia aparecer el dialog para decir uno
+        fixButtonUI();
+        this.setResizable(false);
+    }
+    
+    public void fixButtonUI() {
+        DrawCard.setBorder(null);
+        DrawCard.setBorder(null);
+        DrawCard.setBorderPainted(false);
+        DrawCard.setContentAreaFilled(false);
+        DrawCard.setOpaque(false);
+        topCardButton.setBorder(null);
+        topCardButton.setBorder(null);
+        topCardButton.setBorderPainted(false);
+        topCardButton.setContentAreaFilled(false);
+        topCardButton.setOpaque(false);
     }
     
     public void setButtonIcons() {
@@ -54,11 +70,21 @@ public class GameStage extends javax.swing.JFrame {
         String[] cardNames = listString.split(",");
         cardsId = new ArrayList<>(Arrays.asList(cardNames));
         for (int i = 0; i < cardsId.size(); i++) {
-            cardButtons.get(i).setIcon(new javax.swing.ImageIcon("C:\\Users\\usuario\\Documents\\NetBeansProjects\\j2\\src\\unoAttack\\images\\PNGs\\small\\" + cardsId.get(i) + ".png"));
+            cardButtons.get(i).setIcon(new javax.swing.ImageIcon("C:\\Users\\ruben\\Documents\\GitHub\\Proyecto-Redes-l\\src\\unoAttack\\images\\PNGs\\small\\" + cardsId.get(i) + ".png"));
+            cardButtons.get(i).setBorder(null);
+            cardButtons.get(i).setBorder(null);
+            cardButtons.get(i).setBorderPainted(false);
+            cardButtons.get(i).setContentAreaFilled(false);
+            cardButtons.get(i).setOpaque(false);
         }
         
         for (int i = cardsId.size();  i < cardButtons.size(); i++ ) {
             cardButtons.get(i).setIcon(null);
+            cardButtons.get(i).setBorder(null);
+            cardButtons.get(i).setBorder(null);
+            cardButtons.get(i).setBorderPainted(false);
+            cardButtons.get(i).setContentAreaFilled(false);
+            cardButtons.get(i).setOpaque(false);
        }
     }
     
@@ -81,9 +107,6 @@ public class GameStage extends javax.swing.JFrame {
         cardButtons.add(jButton12);
         cardButtons.add(jButton13);
         cardButtons.add(jButton14);
-        cardButtons.add(jButton15);
-        //cardButtons.add(DrawCard);
-        //cardButtons.add(jButton1);
     }
     
     public void setPidName() {
@@ -113,215 +136,176 @@ public class GameStage extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
-        jButton9 = new javax.swing.JButton();
-        jButton10 = new javax.swing.JButton();
-        jButton11 = new javax.swing.JButton();
-        jButton12 = new javax.swing.JButton();
-        jButton13 = new javax.swing.JButton();
-        jButton14 = new javax.swing.JButton();
-        jButton15 = new javax.swing.JButton();
         DrawCard = new javax.swing.JButton();
         topCardButton = new javax.swing.JButton();
         pidNameLabel = new javax.swing.JLabel();
+        jButton14 = new javax.swing.JButton();
+        jButton13 = new javax.swing.JButton();
+        jButton12 = new javax.swing.JButton();
+        jButton11 = new javax.swing.JButton();
+        jButton10 = new javax.swing.JButton();
+        jButton9 = new javax.swing.JButton();
+        jButton8 = new javax.swing.JButton();
+        jButton7 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Uno");
+        setPreferredSize(new java.awt.Dimension(1200, 700));
 
-        jPanel1.setPreferredSize(new java.awt.Dimension(1280, 720));
+        jPanel1.setPreferredSize(new java.awt.Dimension(1200, 700));
+        jPanel1.setLayout(null);
 
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
-
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
-            }
-        });
-
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
-            }
-        });
-
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
-            }
-        });
-
-        jButton7.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton7ActionPerformed(evt);
-            }
-        });
-
-        jButton8.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton8ActionPerformed(evt);
-            }
-        });
-
-        jButton9.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton9ActionPerformed(evt);
-            }
-        });
-
-        jButton10.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton10ActionPerformed(evt);
-            }
-        });
-
-        jButton11.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton11ActionPerformed(evt);
-            }
-        });
-
-        jButton12.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton12ActionPerformed(evt);
-            }
-        });
-
-        jButton13.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton13ActionPerformed(evt);
-            }
-        });
-
-        jButton14.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton14ActionPerformed(evt);
-            }
-        });
-
-        jButton15.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton15ActionPerformed(evt);
-            }
-        });
-
+        DrawCard.setIcon(new javax.swing.ImageIcon(getClass().getResource("/unoAttack/images/PNGs/small/card_back.png"))); // NOI18N
         DrawCard.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 DrawCardActionPerformed(evt);
             }
         });
+        jPanel1.add(DrawCard);
+        DrawCard.setBounds(420, 60, 132, 191);
 
         topCardButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 topCardButtonActionPerformed(evt);
             }
         });
+        jPanel1.add(topCardButton);
+        topCardButton.setBounds(580, 60, 132, 191);
 
         pidNameLabel.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        pidNameLabel.setForeground(new java.awt.Color(255, 255, 255));
+        jPanel1.add(pidNameLabel);
+        pidNameLabel.setBounds(20, 440, 468, 48);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(50, 50, 50)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pidNameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 468, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jButton5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton6)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton7)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton8)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton9)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton10)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton11)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton12)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton13)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton14)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton15))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(57, 57, 57)
-                                .addComponent(DrawCard, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(29, 29, 29)
-                                .addComponent(topCardButton, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addGap(0, 0, 0))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(196, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(DrawCard, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(topCardButton, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(158, 158, 158)
-                .addComponent(pidNameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton9, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton10, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton11, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton12, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton13, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton14, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton15, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
-        );
+        jButton14.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton14ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton14);
+        jButton14.setBounds(1060, 500, 132, 191);
+
+        jButton13.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton13ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton13);
+        jButton13.setBounds(1000, 500, 132, 191);
+
+        jButton12.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton12ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton12);
+        jButton12.setBounds(930, 500, 132, 191);
+        jButton12.getAccessibleContext().setAccessibleName("");
+
+        jButton11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton11ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton11);
+        jButton11.setBounds(860, 500, 132, 191);
+
+        jButton10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton10ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton10);
+        jButton10.setBounds(790, 500, 132, 191);
+
+        jButton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton9ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton9);
+        jButton9.setBounds(720, 500, 132, 191);
+
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton8);
+        jButton8.setBounds(640, 500, 132, 191);
+
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton7);
+        jButton7.setBounds(550, 500, 132, 191);
+
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton6);
+        jButton6.setBounds(470, 500, 132, 191);
+
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton5);
+        jButton5.setBounds(380, 500, 132, 191);
+
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton4);
+        jButton4.setBounds(290, 500, 132, 191);
+
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton3);
+        jButton3.setBounds(200, 500, 132, 191);
+
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton2);
+        jButton2.setBounds(100, 500, 132, 191);
+
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton1);
+        jButton1.setBounds(10, 500, 132, 191);
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/unoAttack/images/PNGs/small/backgruound.jpg"))); // NOI18N
+        jPanel1.add(jLabel1);
+        jLabel1.setBounds(0, 0, 1220, 700);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1220, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -350,189 +334,159 @@ public class GameStage extends javax.swing.JFrame {
         this.setButtonIcons();
     }//GEN-LAST:event_DrawCardActionPerformed
 
-    private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton15ActionPerformed
-        if (cardsId.get(14) != null) {
-            int index = 14;
-            String cardId = cardsId.get(14);
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        if (cardsId.get(0) != null) {
+            int index = 0;
+            String cardId = cardsId.get(0);
             window = new PopUp(cardId, game, index,cardButtons, this, topCardButton);
             window.setVisible(true);
             window.setResizable(false);
             window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         }
-    }//GEN-LAST:event_jButton15ActionPerformed
-
-    private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
-        if (cardsId.get(13) != null) {
-            int index = 13;
-            String cardId = cardsId.get(13);
-            window = new PopUp(cardId, game, index,cardButtons, this, topCardButton);
-            //window.setBounds(350, 40, 350,350);// window.setBounds(750, 40, 700, 800);
-            window.setVisible(true);
-            window.setResizable(false);
-            window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        }
-    }//GEN-LAST:event_jButton14ActionPerformed
-
-    private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
-        if (cardsId.get(12) != null) {
-            int index = 12;
-            String cardId = cardsId.get(12);
-            window = new PopUp(cardId, game, index,cardButtons, this, topCardButton);
-            // window.setBounds(350, 40, 350,350);// window.setBounds(750, 40, 700, 800);
-            window.setVisible(true);
-            window.setResizable(false);
-            window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        }
-    }//GEN-LAST:event_jButton13ActionPerformed
-
-    private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
-        if (cardsId.get(11) != null) {
-            int index = 11;
-            String cardId = cardsId.get(11);
-            window = new PopUp(cardId, game, index,cardButtons, this, topCardButton);
-            // window.setBounds(350, 40, 350,350); ///window.setBounds(750, 40, 700, 800);
-            window.setVisible(true);
-            window.setResizable(false);
-            window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        }
-    }//GEN-LAST:event_jButton12ActionPerformed
-
-    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
-        if (cardsId.get(10) != null) {
-            int index = 10;
-            String cardId = cardsId.get(10);
-            window = new PopUp(cardId, game, index,cardButtons, this, topCardButton);
-            // window.setBounds(350, 40, 350,350);//window.setBounds(750, 40, 700, 800);
-            window.setVisible(true);
-            window.setResizable(false);
-            window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        }
-    }//GEN-LAST:event_jButton11ActionPerformed
-
-    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-        if (cardsId.get(9) != null) {
-            int index = 9;
-            String cardId = cardsId.get(9);
-            window = new PopUp(cardId, game, index,cardButtons, this, topCardButton);
-            //window.setBounds(350, 40, 350,350);// window.setBounds(750, 40, 700, 800);
-            window.setVisible(true);
-            window.setResizable(false);
-            window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        }
-    }//GEN-LAST:event_jButton10ActionPerformed
-
-    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-        if (cardsId.get(8) != null) {
-            int index = 8;
-            String cardId = cardsId.get(8);
-            window = new PopUp(cardId, game, index,cardButtons, this, topCardButton);
-            //window.setBounds(350, 40, 350,350);// window.setBounds(750, 40, 700, 800);
-            window.setVisible(true);
-            window.setResizable(false);
-            window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        }
-    }//GEN-LAST:event_jButton9ActionPerformed
-
-    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        if (cardsId.get(7) != null) {
-            int index = 7;
-            String cardId = cardsId.get(7);
-            window = new PopUp(cardId, game, index,cardButtons, this, topCardButton);
-            //window.setBounds(350, 40, 350,350);// window.setBounds(750, 40, 700, 800);
-            window.setVisible(true);
-            window.setResizable(false);
-            window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        }
-    }//GEN-LAST:event_jButton8ActionPerformed
-
-    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        if (cardsId.get(6) != null) {
-            int index = 6;
-            String cardId = cardsId.get(6);
-            window = new PopUp(cardId, game, index,cardButtons, this, topCardButton);
-            // window.setBounds(350, 40, 350,350);//window.setBounds(750, 40, 700, 800);
-            window.setVisible(true);
-            window.setResizable(false);
-            window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        }
-    }//GEN-LAST:event_jButton7ActionPerformed
-
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        if (cardsId.get(5) != null) {
-            int index = 5;
-            String cardId = cardsId.get(5);
-            window = new PopUp(cardId, game, index,cardButtons, this, topCardButton);
-            // window.setBounds(350, 40, 350,350); // window.setBounds(750, 40, 700, 800);
-            window.setVisible(true);
-            window.setResizable(false);
-            window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        }
-    }//GEN-LAST:event_jButton6ActionPerformed
-
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        if (cardsId.get(4) != null) {
-            int index = 4;
-            String cardId = cardsId.get(4);
-            window = new PopUp(cardId, game, index,cardButtons, this, topCardButton);
-            // window.setBounds(750, 40, 700, 800);
-            // window.setBounds(350, 40, 350,350);
-            window.setVisible(true);
-            window.setResizable(false);
-            window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        }
-    }//GEN-LAST:event_jButton5ActionPerformed
-
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        if (cardsId.get(3) != null) {
-            int index = 3;
-            String cardId = cardsId.get(3);
-            window = new PopUp(cardId, game, index,cardButtons, this, topCardButton);
-            // window.setBounds(750, 40, 700, 800);
-            //  window.setBounds(350, 40, 350,350);
-            window.setVisible(true);
-            window.setResizable(false);
-            window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        }
-    }//GEN-LAST:event_jButton4ActionPerformed
-
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        if (cardsId.get(2) != null) {
-            int index = 2;
-            String cardId = cardsId.get(2);
-            window = new PopUp(cardId, game, index,cardButtons, this, topCardButton);
-            // window.setBounds(750, 40, 700, 800);
-            // window.setBounds(350, 40, 350,350);
-            window.setVisible(true);
-            window.setResizable(false);
-            window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        }
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         if (cardsId.get(1) != null) {
             int index = 1;
             String cardId = cardsId.get(1);
             window = new PopUp(cardId, game, index,cardButtons, this, topCardButton);
-            //window.setBounds(750, 40, 700, 800);
-            // window.setBounds(350, 40, 350,350);
             window.setVisible(true);
             window.setResizable(false);
             window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        if (cardsId.get(0) != null) {
-            int index = 0;
-            String cardId = cardsId.get(0);
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        if (cardsId.get(5) != null) {
+            int index = 5;
+            String cardId = cardsId.get(5);
             window = new PopUp(cardId, game, index,cardButtons, this, topCardButton);
-            window.setBounds(350, 40, 350,350);
             window.setVisible(true);
             window.setResizable(false);
             window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         }
+    }//GEN-LAST:event_jButton6ActionPerformed
 
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        if (cardsId.get(2) != null) {
+            int index = 2;
+            String cardId = cardsId.get(2);
+            window = new PopUp(cardId, game, index,cardButtons, this, topCardButton);
+            window.setVisible(true);
+            window.setResizable(false);
+            window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        if (cardsId.get(3) != null) {
+            int index = 3;
+            String cardId = cardsId.get(3);
+            window = new PopUp(cardId, game, index,cardButtons, this, topCardButton);
+            window.setVisible(true);
+            window.setResizable(false);
+            window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        }
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+       if (cardsId.get(4) != null) {
+            int index = 4;
+            String cardId = cardsId.get(4);
+            window = new PopUp(cardId, game, index,cardButtons, this, topCardButton);
+            window.setVisible(true);
+            window.setResizable(false);
+            window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        }
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        if (cardsId.get(6) != null) {
+            int index = 6;
+            String cardId = cardsId.get(6);
+            window = new PopUp(cardId, game, index,cardButtons, this, topCardButton);
+            window.setVisible(true);
+            window.setResizable(false);
+            window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        }
+    }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        if (cardsId.get(7) != null) {
+            int index = 7;
+            String cardId = cardsId.get(7);
+            window = new PopUp(cardId, game, index,cardButtons, this, topCardButton);
+            window.setVisible(true);
+            window.setResizable(false);
+            window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        }
+    }//GEN-LAST:event_jButton8ActionPerformed
+
+    private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
+       if (cardsId.get(11) != null) {
+            int index = 11;
+            String cardId = cardsId.get(11);
+            window = new PopUp(cardId, game, index,cardButtons, this, topCardButton);
+            window.setVisible(true);
+            window.setResizable(false);
+            window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        }
+    }//GEN-LAST:event_jButton12ActionPerformed
+
+    private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
+        if (cardsId.get(12) != null) {
+            int index = 12;
+            String cardId = cardsId.get(12);
+            window = new PopUp(cardId, game, index,cardButtons, this, topCardButton);
+            window.setVisible(true);
+            window.setResizable(false);
+            window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        }
+    }//GEN-LAST:event_jButton13ActionPerformed
+
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+        if (cardsId.get(8) != null) {
+            int index = 8;
+            String cardId = cardsId.get(8);
+            window = new PopUp(cardId, game, index,cardButtons, this, topCardButton);
+            window.setVisible(true);
+            window.setResizable(false);
+            window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        }
+    }//GEN-LAST:event_jButton9ActionPerformed
+
+    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+        if (cardsId.get(9) != null) {
+            int index = 9;
+            String cardId = cardsId.get(9);
+            window = new PopUp(cardId, game, index,cardButtons, this, topCardButton);
+            window.setVisible(true);
+            window.setResizable(false);
+            window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        }
+    }//GEN-LAST:event_jButton10ActionPerformed
+
+    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
+        if (cardsId.get(10) != null) {
+            int index = 10;
+            String cardId = cardsId.get(10);
+            window = new PopUp(cardId, game, index,cardButtons, this, topCardButton);
+            window.setVisible(true);
+            window.setResizable(false);
+            window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        }
+    }//GEN-LAST:event_jButton11ActionPerformed
+
+    private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
+        if (cardsId.get(13) != null) {
+            int index = 13;
+            String cardId = cardsId.get(13);
+            window = new PopUp(cardId, game, index,cardButtons, this, topCardButton);
+            window.setVisible(true);
+            window.setResizable(false);
+            window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        }
+    }//GEN-LAST:event_jButton14ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -568,6 +522,7 @@ public class GameStage extends javax.swing.JFrame {
             }
         });
     }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton DrawCard;
@@ -577,7 +532,6 @@ public class GameStage extends javax.swing.JFrame {
     private javax.swing.JButton jButton12;
     private javax.swing.JButton jButton13;
     private javax.swing.JButton jButton14;
-    private javax.swing.JButton jButton15;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
@@ -586,6 +540,7 @@ public class GameStage extends javax.swing.JFrame {
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel pidNameLabel;
     private javax.swing.JButton topCardButton;
