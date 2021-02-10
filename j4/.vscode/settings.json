@@ -1,0 +1,8 @@
+{
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar",
+        "c:\\Users\\ruben\\Downloads\\rxtx-2.2.2.jar",
+        "c:\\Users\\ruben\\Pictures\\jSerialComm-2.6.2.jar",
+        "c:\\Users\\ruben\\Pictures\\jssc-2.9.2.jar"
+    ]
+}
