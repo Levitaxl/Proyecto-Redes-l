@@ -268,12 +268,6 @@ public class Game extends Thread  {
 
             playerHand.remove(card);
 
-            if(hasEmptyHand(this.currentPlayer)) {
-                JLabel message3 = new JLabel(this.currentPlayer + " ha ganado el juego");
-                message3.setFont(new Font("Arial", Font.BOLD, 18));
-                JOptionPane.showMessageDialog(null, message3);
-                System.exit(0);
-            }
 
             
             validColor = declaredColor;
@@ -381,6 +375,13 @@ public class Game extends Thread  {
             enviarMensaje(trama);
             }
             
+             if(hasEmptyHand(this.currentPlayer)) {
+                JLabel message3 = new JLabel(this.currentPlayer + " ha ganado el juego");
+                message3.setFont(new Font("Arial", Font.BOLD, 18));
+                JOptionPane.showMessageDialog(null, message3);
+                System.exit(0);
+            }
+            
     }
    public String AdaptTheColorsToTheTrama(String color){
         if(color.equals("Red"))             return "RO";
@@ -420,12 +421,13 @@ public class Game extends Thread  {
         int    nroCarta=parseInt(trama.substring(3,5));
         String tipoCarta=trama.substring(6,8);
         String colorCarta = null;
-        String cantidadCartas=trama.substring(8,10);
+ 
         String nuevoColorCarta=trama.substring(10,12);
         JLabel message = new JLabel();
         String nroCartaString=trama.substring(3,5);
         String jugador=trama.substring(1,2);
         String direccion=trama.substring(5,6);
+        String jugadorOrigen=trama.substring(0,1);
         
         gameDirection=(direccion.equals("1"))?true:false;
         nextPlayer=(gameDirection == false)?"C":"B";
@@ -438,6 +440,22 @@ public class Game extends Thread  {
         validValue = card.getValue();
         System.out.println(currentPlayer+"-"+jugador);
         stockPile.add(card);
+        String cantidadCartas=trama.substring(8,10);
+        System.out.println("La cantidad de cartas que hay son de"+ cantidadCartas);
+        if(cantidadCartas.equals("01")){
+            message = new JLabel("El jugador "+jugadorOrigen+ "Tiene UNO");
+            message.setFont(new Font("Arial", Font.BOLD, 18));
+            
+            JOptionPane.showMessageDialog(null, message);
+        }
+        
+        if(cantidadCartas.equals("00")) {
+                JLabel message3 = new JLabel("El jugador "+jugadorOrigen + " ha ganado el juego");
+                message3.setFont(new Font("Arial", Font.BOLD, 18));
+                JOptionPane.showMessageDialog(null, message3);
+                System.exit(0);
+        }
+
         
         if(jugador.equals(currentPlayer)){
             if(nroCarta>9){

@@ -43,7 +43,7 @@ public class GameStage extends javax.swing.JFrame {
         popularArrayList();
         game.start(game);
         setPidName();
-        topCardButton.setIcon(new javax.swing.ImageIcon("C:\\Users\\ruben\\Documents\\GitHub\\Proyecto-Redes-l\\src\\unoAttack\\images\\PNGs\\small\\" + game.getTopCardImage()));
+        topCardButton.setIcon(new javax.swing.ImageIcon("C:\\Users\\usuario\\Documents\\NetBeansProjects\\j2\\src\\unoAttack\\images\\PNGs\\small\\" + game.getTopCardImage()));
         setButtonIcons();
         //this.setBounds(0,0, 1280, 720);
         this.setSize(1220, 730);
@@ -70,7 +70,7 @@ public class GameStage extends javax.swing.JFrame {
         String[] cardNames = listString.split(",");
         cardsId = new ArrayList<>(Arrays.asList(cardNames));
         for (int i = 0; i < cardsId.size(); i++) {
-            cardButtons.get(i).setIcon(new javax.swing.ImageIcon("C:\\Users\\ruben\\Documents\\GitHub\\Proyecto-Redes-l\\src\\unoAttack\\images\\PNGs\\small\\" + cardsId.get(i) + ".png"));
+            cardButtons.get(i).setIcon(new javax.swing.ImageIcon("C:\\Users\\usuario\\Documents\\NetBeansProjects\\j2\\src\\unoAttack\\images\\PNGs\\small\\" + cardsId.get(i) + ".png"));
             cardButtons.get(i).setBorder(null);
             cardButtons.get(i).setBorder(null);
             cardButtons.get(i).setBorderPainted(false);
@@ -86,6 +86,7 @@ public class GameStage extends javax.swing.JFrame {
             cardButtons.get(i).setContentAreaFilled(false);
             cardButtons.get(i).setOpaque(false);
        }
+       popUpUno(game);
     }
     
     public void test(){
@@ -120,7 +121,10 @@ public class GameStage extends javax.swing.JFrame {
     }
     
     public void popUpUno (Game game) {
+        System.out.println("El uno es "+game.getPlayerHandSize(game.getCurrentPlayer()));
+        
         if (game.getPlayerHandSize(game.getCurrentPlayer()) == 1) {
+            System.out.println("UNOO");
             PopUoUno popup = new PopUoUno(game);
             popup.setVisible(true);
         }
@@ -207,7 +211,6 @@ public class GameStage extends javax.swing.JFrame {
         });
         jPanel1.add(jButton12);
         jButton12.setBounds(930, 500, 132, 191);
-        jButton12.getAccessibleContext().setAccessibleName("");
 
         jButton11.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
